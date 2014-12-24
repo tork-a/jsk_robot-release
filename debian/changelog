@@ -1,0 +1,8 @@
+ros-hydro-pepper-bringup (0.0.1-1quantal) quantal; urgency=high
+
+  * add pepper_bringup, add CMakeLists.txt package.xml launch/pepper.launch
+  * Contributors: Kei Okada
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
