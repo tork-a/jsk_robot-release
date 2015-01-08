@@ -1,0 +1,34 @@
+## jsk_robot (hydro) - 0.0.2-0
+
+The packages in the `jsk_robot` repository were released into the `hydro` distro by running `/usr/bin/bloom-release jsk_robot --rosdistro hydro --track hydro` on `Thu, 08 Jan 2015 11:42:48 -0000`
+
+These packages were released:
+- `baxtereus`
+- `jsk_baxter_desktop`
+- `jsk_baxter_startup`
+- `jsk_baxter_web`
+- `jsk_nao_startup`
+- `jsk_pepper_startup`
+- `jsk_pr2_calibration`
+- `jsk_pr2_startup`
+- `jsk_robot_startup`
+- `pepper_bringup`
+- `pepper_description`
+- `peppereus`
+- `pr2_base_trajectory_action`
+
+Version of package(s) in repository `jsk_robot`:
+- upstream repository: https://github.com/jsk-ros-pkg/jsk_robot.git
+- release repository: https://github.com/tork-a/jsk_robot-release.git
+- rosdistro version: `0.0.1-1`
+- old version: `0.0.1-1`
+- new version: `0.0.2-0`
+
+Versions of tools used:
+- bloom version: `0.5.16`
+- catkin_pkg version: `0.2.6`
+- rosdep version: `0.11.0`
+- rosdistro version: `0.4.0`
+- vcstools version: `0.1.36`
+
+
