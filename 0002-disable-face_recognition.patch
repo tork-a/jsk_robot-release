@@ -1,4 +1,4 @@
-From 114001fd38c8374a9ed0ef7f04fc38db2604e087 Mon Sep 17 00:00:00 2001
+From b347df5f83bbfc96006c353546776201b0656ff1 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:04:47 +0900
 Subject: [PATCH 2/2] disable face_recognition
