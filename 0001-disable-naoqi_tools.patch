@@ -1,4 +1,4 @@
-From 9ab2e6a4a2389606724ebd556ba7b13c2fb9d61c Mon Sep 17 00:00:00 2001
+From f5104f74bd75d1661a56dc51b5e07a25849b06a1 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:05:43 +0900
 Subject: [PATCH] disable naoqi_tools
