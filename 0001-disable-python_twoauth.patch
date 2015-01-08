@@ -1,4 +1,4 @@
-From e148d42a43983fe3fc17f34eb7118f67442b8e78 Mon Sep 17 00:00:00 2001
+From fc08dbd47d9c5ee4c29951a7b142b26857ecf8ef Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:03:24 +0900
 Subject: [PATCH] disable python_twoauth
