@@ -1,4 +1,4 @@
-From 16e1bb3f79248b266824a4a403b3d08db62c435f Mon Sep 17 00:00:00 2001
+From e301b76d3cec4a045e0d3dd990e35425419225d1 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:02:21 +0900
 Subject: [PATCH] disable rwt_ros
