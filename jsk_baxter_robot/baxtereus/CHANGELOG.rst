@@ -2,6 +2,12 @@
 Changelog for package baxtereus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.2 (2015-01-08)
+------------------
+* add install commands to cmake
+* add baxter-moveit.l
+* Contributors: Kei Okada, Yuto Inagaki
+
 0.0.1 (2014-12-25)
 ------------------
 * fix version number
