@@ -1,0 +1,12 @@
+Source: ros-hydro-jsk-pr2-calibration
+Section: misc
+Priority: extra
+Maintainer: Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-catkin, ros-hydro-euscollada, ros-hydro-pr2-calibration-launch, ros-hydro-pr2-description
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-hydro-jsk-pr2-calibration
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-euscollada, ros-hydro-pr2-calibration-launch, ros-hydro-pr2-description
+Description: The jsk_pr2_calibration package
