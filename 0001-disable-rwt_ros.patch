@@ -1,14 +1,14 @@
-From e301b76d3cec4a045e0d3dd990e35425419225d1 Mon Sep 17 00:00:00 2001
+From 8697f2d4378d549d74bbcaebcc189da26cf70a0b Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:02:21 +0900
 Subject: [PATCH] disable rwt_ros
 
 ---
- package.xml | 6 +++---
+ package.xml |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index 87a5ff8..a0d2ea5 100644
+index 78b173c..b753042 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -10,15 +10,15 @@
@@ -32,5 +32,5 @@ index 87a5ff8..a0d2ea5 100644
 \ No newline at end of file
 +</package>
 -- 
-1.9.1
+1.7.9.5
 
