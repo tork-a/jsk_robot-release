@@ -2,6 +2,9 @@
 Changelog for package pepper_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.3 (2015-01-09)
+------------------
+
 0.0.2 (2015-01-08)
 ------------------
 * add install commands to cmake
