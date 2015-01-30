@@ -1,14 +1,14 @@
-From c17ec7d88214843b9db51274d583cf458751c323 Mon Sep 17 00:00:00 2001
+From 5b29ed4e330a02d0a257597ddd0b85b7ec444e39 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:05:43 +0900
 Subject: [PATCH] disable naoqi_tools
 
 ---
- package.xml |    2 +-
+ package.xml | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.xml b/package.xml
-index 3b4b8d9..e8b3261 100644
+index cb1f794..8edfd6e 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -10,7 +10,7 @@
@@ -21,5 +21,5 @@ index 3b4b8d9..e8b3261 100644
    <export>
    </export>
 -- 
-1.7.9.5
+1.9.1
 
