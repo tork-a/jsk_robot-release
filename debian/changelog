@@ -1,0 +1,27 @@
+ros-indigo-pepper-bringup (0.0.4-0saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-indigo-pepper-bringup (0.0.3-0saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-indigo-pepper-bringup (0.0.2-0saucy) saucy; urgency=high
+
+  * add install commands to cmake
+  * Contributors: Kei Okada
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-indigo-pepper-bringup (0.0.1-0saucy) saucy; urgency=high
+
+  * add pepper_bringup, add CMakeLists.txt package.xml launch/pepper.launch
+  * Contributors: Kei Okada
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
