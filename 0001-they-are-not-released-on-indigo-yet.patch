@@ -1,0 +1,29 @@
+From 85db4744f9b9fe76540e7bf14898124ce1fb58c4 Mon Sep 17 00:00:00 2001
+From: Kei Okada <kei.okada@gmail.com>
+Date: Fri, 30 Jan 2015 15:11:02 +0900
+Subject: [PATCH] they are not released on indigo yet
+
+---
+ package.xml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/package.xml b/package.xml
+index d3de4db..96f232a 100644
+--- a/package.xml
++++ b/package.xml
+@@ -7,10 +7,10 @@
+   <license>BSD</license>
+   <buildtool_depend>catkin</buildtool_depend>
+   <build_depend>euscollada</build_depend>
+-  <build_depend>pr2_calibration_launch</build_depend>
++  <!-- <build_depend>pr2_calibration_launch</build_depend> -->
+   <build_depend>pr2_description</build_depend>
+   <run_depend>euscollada</run_depend>
+-  <run_depend>pr2_calibration_launch</run_depend>
++  <!-- <run_depend>pr2_calibration_launch</run_depend> -->
+   <run_depend>pr2_description</run_depend>
+   <export>
+   </export>
+-- 
+1.9.1
+
