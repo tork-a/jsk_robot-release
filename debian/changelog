@@ -1,0 +1,28 @@
+ros-indigo-pepper-description (0.0.4-1saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-indigo-pepper-description (0.0.3-1saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-indigo-pepper-description (0.0.2-1saucy) saucy; urgency=high
+
+  * add install commands to cmake
+  * Contributors: Kei Okada
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-indigo-pepper-description (0.0.1-1saucy) saucy; urgency=high
+
+  * add pepper_description/.gitignore
+  * add pepper_description, just cmakefile to convert xml model file simulator to urdf, you need latest assimp
+  * Contributors: Kei Okada
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
