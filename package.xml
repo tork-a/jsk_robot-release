@@ -10,7 +10,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <!-- <build_depend>naoqi_tools</build_depend> -->
+  <build_depend>naoqi_tools</build_depend>
 
   <export>
   </export>
