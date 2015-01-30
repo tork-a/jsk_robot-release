@@ -1,0 +1,27 @@
+ros-hydro-pepper-bringup (0.0.4-0precise) precise; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-hydro-pepper-bringup (0.0.3-0precise) precise; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-hydro-pepper-bringup (0.0.2-0precise) precise; urgency=high
+
+  * add install commands to cmake
+  * Contributors: Kei Okada
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-hydro-pepper-bringup (0.0.1-0precise) precise; urgency=high
+
+  * add pepper_bringup, add CMakeLists.txt package.xml launch/pepper.launch
+  * Contributors: Kei Okada
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
