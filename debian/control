@@ -1,0 +1,12 @@
+Source: ros-hydro-jsk-pr2-startup
+Section: misc
+Priority: extra
+Maintainer: Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-amcl, ros-hydro-catkin, ros-hydro-dwa-local-planner, ros-hydro-dynamic-tf-publisher, ros-hydro-image-view2, ros-hydro-imagesift, ros-hydro-jsk-interactive-marker, ros-hydro-jsk-network-tools, ros-hydro-jsk-pcl-ros, ros-hydro-jsk-perception, ros-hydro-jsk-robot-startup, ros-hydro-jsk-topic-tools, ros-hydro-map-server, ros-hydro-mjpeg-server, ros-hydro-move-base, ros-hydro-move-base-msgs, ros-hydro-openni-camera, ros-hydro-pr2-base-trajectory-action, ros-hydro-pr2-gripper-sensor-action, ros-hydro-pr2-mannequin-mode, ros-hydro-resized-image-transport, ros-hydro-roseus, ros-hydro-rospy, ros-hydro-rostwitter, ros-hydro-rqt-gui, ros-hydro-rqt-gui-py, ros-hydro-rqt-py-common, ros-hydro-sound-play, ros-hydro-std-msgs, ros-hydro-tf2, ros-hydro-tf2-ros, ros-hydro-topic-tools, ros-hydro-voice-text
+Homepage: http://ros.org/wiki/jsk_pr2_startup
+Standards-Version: 3.9.2
+
+Package: ros-hydro-jsk-pr2-startup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-dwa-local-planner, ros-hydro-jsk-interactive-marker, ros-hydro-jsk-network-tools, ros-hydro-jsk-robot-startup, ros-hydro-pr2-gripper-sensor-action, ros-hydro-pr2-mannequin-mode
+Description: jsk_pr2_startup
