@@ -2,6 +2,14 @@
 Changelog for package baxtereus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.5 (2015-04-08)
+------------------
+* [baxter-interface.l] fix typo
+* [baxter-interface.l] overwrite :angle-vector-seuqnce for tm = :fast
+* [baxter-interface.l] notify this warning is ok
+* [baxtereus] add head action client for baxter
+* Contributors: Yuto Inagaki
+
 0.0.4 (2015-01-30)
 ------------------
 * currently we do not generate baxter.l from baxter_description on the fly
