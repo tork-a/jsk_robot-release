@@ -1,36 +1,39 @@
-From 690efc86ebecc472f53281dba0005fe85a5ff1b0 Mon Sep 17 00:00:00 2001
+From 8ae9d32fea304bd19d3cb6b0594cc03627a89fb8 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:02:21 +0900
 Subject: [PATCH] disable rwt_ros
 
 ---
- package.xml | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ package.xml | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index 504447c..7ad2f15 100644
+index 858e673..7d75778 100644
 --- a/package.xml
 +++ b/package.xml
-@@ -10,15 +10,15 @@
+@@ -10,16 +10,16 @@
    <license>BSD</license>
    <buildtool_depend>catkin</buildtool_depend>
    <build_depend>rosbridge_server</build_depend>
--  <build_depend>rwt_ros</build_depend>
-+  <!-- <build_depend>rwt_ros</build_depend> -->
+-  <build_depend>roslibjs</build_depend>
+-  <build_depend>ros2djs</build_depend>
+-  <build_depend>ros3djs</build_depend>
++  <!-- <build_depend>roslibjs</build_depend> -->
++  <!-- <build_depend>ros2djs</build_depend> -->
++  <!-- <build_depend>ros3djs</build_depend> -->
    <build_depend>baxter_description</build_depend>
    <build_depend>robot_state_publisher</build_depend>
-   <!-- <build_depend>joint_state_publisher</build_depend> -->
    <build_depend>tf2_web_republisher</build_depend>
    <run_depend>rosbridge_server</run_depend>
--  <run_depend>rwt_ros</run_depend>
-+  <!-- <run_depend>rwt_ros</run_depend> -->
+-  <run_depend>roslibjs</run_depend>
+-  <run_depend>ros2djs</run_depend>
+-  <run_depend>ros3djs</run_depend>
++  <!-- <run_depend>roslibjs</run_depend> -->
++  <!-- <run_depend>ros2djs</run_depend> -->
++  <!-- <run_depend>ros3djs</run_depend> -->
    <run_depend>baxter_description</run_depend>
    <run_depend>robot_state_publisher</run_depend>
    <!-- <run_depend>joint_state_publisher</run_depend> -->
-   <run_depend>tf2_web_republisher</run_depend>
--</package>
-\ No newline at end of file
-+</package>
 -- 
 1.9.1
 
