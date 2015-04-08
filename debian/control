@@ -1,0 +1,12 @@
+Source: ros-hydro-jsk-baxter-startup
+Section: misc
+Priority: extra
+Maintainer: Yuto Inagaki <inagaki@jsk.imi.i.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-baxter-core-msgs, ros-hydro-baxter-description, ros-hydro-baxter-examples, ros-hydro-baxter-interface, ros-hydro-baxter-tools, ros-hydro-catkin, ros-hydro-checkerboard-detector, ros-hydro-dynamic-tf-publisher, ros-hydro-image-view, ros-hydro-joy, ros-hydro-openni-launch, ros-hydro-roseus, ros-hydro-rostwitter, ros-hydro-sound-play, ros-hydro-topic-tools
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-hydro-jsk-baxter-startup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-baxter-core-msgs, ros-hydro-baxter-description, ros-hydro-baxter-examples, ros-hydro-baxter-interface, ros-hydro-baxter-tools, ros-hydro-checkerboard-detector, ros-hydro-dynamic-tf-publisher, ros-hydro-image-view, ros-hydro-joy, ros-hydro-openni-launch, ros-hydro-roseus, ros-hydro-rostwitter, ros-hydro-sound-play, ros-hydro-topic-tools
+Description: The jsk_baxter_startup package
