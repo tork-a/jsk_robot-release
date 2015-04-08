@@ -2,6 +2,9 @@
 Changelog for package jsk_baxter_web
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.5 (2015-04-08)
+------------------
+
 0.0.4 (2015-01-30)
 ------------------
 * do not generate baxter_description if baxter_description is not found
