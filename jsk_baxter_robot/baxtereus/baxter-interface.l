@@ -17,6 +17,7 @@
    (prog1 (send-super :init :robot baxter-robot :joint-states-topic "/robot/joint_states" :groupname "baxter_interface")
      (send self :add-controller :larm-controller)
      (send self :add-controller :rarm-controller)
+     (send self :add-controller :head-controller)
      (ros::advertise "/robot/end_effector/right_gripper/command" baxter_core_msgs::EndEffectorCommand 5) 
      (ros::advertise "/robot/end_effector/left_gripper/command" baxter_core_msgs::EndEffectorCommand 5) 
      (ros::advertise "/robot/xdisplay" sensor_msgs::Image 1)
@@ -38,6 +39,7 @@
      (dolist (action (list right-gripper-action left-gripper-action))
        (unless (and joint-action-enable (send action :wait-for-server 3))
 	 (ros::ros-warn "~A is not respond" action)
+	 (ros::ros-info "*** if you do not have gripper, you can ignore this message ***")
 	 (return)))
 
      (setq gripper-sequence-id 0)
@@ -52,7 +54,8 @@
   (:default-controller ()
    (append
     (send self :larm-controller)
-    (send self :rarm-controller)))
+    (send self :rarm-controller)
+    (send self :head-controller)))
   (:larm-controller ()
    (list
     (list
@@ -67,6 +70,13 @@
      (cons :controller-state "/robot/limb/right/state")
      (cons :action-type control_msgs::FollowJointTrajectoryAction)
      (cons :joint-names (list "right_s0" "right_s1" "right_e0" "right_e1" "right_w0" "right_w1" "right_w2")))))
+  (:head-controller ()
+   (list
+    (list
+     (cons :controller-action "/robot/head/head_action")
+     (cons :controller-state "/robot/head/head_state")
+     (cons :action-type control_msgs::SingleJointPositionAction)
+     (cons :joint-names (list "head-neck-y")))))
   (:close-head-camera ()
     (send self :close-camera "head_camera")
     )
@@ -218,6 +228,20 @@
      (ros::publish "/robot/head/command_head_nod" msg)
      )
    )
+  (:angle-vector (av &optional (tm :fast) (ctype controller-type) (start-time 0) &rest args)
+		 (send* self :angle-vector-sequence (list av) (list tm) ctype start-time args))
+  (:angle-vector-sequence (avs &optional (tms :fast) (ctype controller-type) (start-time 0) &key (scale 2.2) (min-time 0.05))
+		 ;; force add current position to the top of avs
+		 (if (atom tms) (setq tms (list tms)))
+		 (push (send self :state :potentio-vector) avs)
+		 (push 50 tms)
+		 (when (= (length avs) 2)
+		   (setq avs (list (elt avs 0) (midpoint 0.5 (elt avs 0) (elt avs 1)) (elt avs 1)))
+		   (cond ((numberp (elt tms 1))
+			  (setq tms (list (elt tms 0) (/ (elt tms 1) 2) (/ (elt tms 1) 2))))
+			 (t
+			  (setq tms (list (elt tms 0) (elt tms 1) (elt tms 1))))))
+		 (send-super :angle-vector-sequence avs tms ctype start-time :scale scale :min-time min-time))
   )
 
 
