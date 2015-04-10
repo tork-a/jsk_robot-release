@@ -1,14 +1,14 @@
-From 5062edd7040208f1844e46e52780c5d36bc9a917 Mon Sep 17 00:00:00 2001
+From 8384890feb0d541429a04592426ff5a5d509baa2 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 30 Jan 2015 15:15:22 +0900
 Subject: [PATCH] they are not released on indigo yet
 
 ---
- package.xml | 10 +++++-----
+ package.xml |   10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index 82e8cb9..4ee0070 100644
+index bc9560d..51bc7db 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -7,13 +7,13 @@
@@ -49,5 +49,5 @@ index 82e8cb9..4ee0070 100644
 \ No newline at end of file
 +</package>
 -- 
-1.9.1
+1.7.9.5
 
