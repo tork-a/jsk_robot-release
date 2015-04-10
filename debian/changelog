@@ -1,0 +1,42 @@
+ros-hydro-peppereus (0.0.6-0quantal) quantal; urgency=high
+
+  * pepper-init added
+  * Contributors: kochigami
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-hydro-peppereus (0.0.5-0quantal) quantal; urgency=high
+
+  * change nao_msgs to naoqi_msgs
+  * Contributors: Jiang Jun
+
+ -- Kei Okada <kei.okada@gmail.com>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-hydro-peppereus (0.0.4-0quantal) quantal; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-hydro-peppereus (0.0.3-0quantal) quantal; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-hydro-peppereus (0.0.2-0quantal) quantal; urgency=high
+
+  * use package:// for pepper.l
+  * add .gitignore
+  * add CMakeLists.txt package.xml pepper-interface.l
+  * Contributors: Kei Okada
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-hydro-peppereus (0.0.1-0quantal) quantal; urgency=high
+
+
+
+ -- Kei Okada <kei.okada@gmail.com>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
