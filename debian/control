@@ -1,0 +1,12 @@
+Source: ros-indigo-jsk-baxter-startup
+Section: misc
+Priority: extra
+Maintainer: Yuto Inagaki <inagaki@jsk.imi.i.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-baxter-core-msgs, ros-indigo-baxter-description, ros-indigo-baxter-examples, ros-indigo-baxter-interface, ros-indigo-baxter-tools, ros-indigo-catkin, ros-indigo-checkerboard-detector, ros-indigo-dynamic-tf-publisher, ros-indigo-image-view, ros-indigo-joy, ros-indigo-openni-launch, ros-indigo-roseus, ros-indigo-rostwitter, ros-indigo-sound-play, ros-indigo-topic-tools
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-jsk-baxter-startup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-baxter-core-msgs, ros-indigo-baxter-description, ros-indigo-baxter-examples, ros-indigo-baxter-interface, ros-indigo-baxter-tools, ros-indigo-checkerboard-detector, ros-indigo-dynamic-tf-publisher, ros-indigo-image-view, ros-indigo-joy, ros-indigo-openni-launch, ros-indigo-roseus, ros-indigo-rostwitter, ros-indigo-sound-play, ros-indigo-topic-tools
+Description: The jsk_baxter_startup package
