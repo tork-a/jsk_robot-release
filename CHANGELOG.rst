@@ -2,6 +2,9 @@
 Changelog for package jsk_pepper_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.6 (2015-04-10)
+------------------
+
 0.0.5 (2015-04-08)
 ------------------
 * modify msg name and launch file name
