@@ -2,6 +2,9 @@
 Changelog for package jsk_pr2_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.6 (2015-04-10)
+------------------
+
 0.0.5 (2015-04-08)
 ------------------
 * [jsk_pr2_startup] Add rossetpr1012 and rossetpr1040 automatically by env-hooks
