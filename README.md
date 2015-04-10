@@ -1,3 +1,39 @@
+## jsk_robot (indigo) - 0.0.6-0
+
+The packages in the `jsk_robot` repository were released into the `indigo` distro by running `/var/lib/jenkins/send_to_bloom.py jsk-ros-pkg jsk_robot` on `Fri, 10 Apr 2015 10:36:57 -0000`
+
+These packages were released:
+- `baxtereus`
+- `jsk_baxter_desktop`
+- `jsk_baxter_startup`
+- `jsk_baxter_web`
+- `jsk_nao_startup`
+- `jsk_pepper_startup`
+- `jsk_pr2_calibration`
+- `jsk_pr2_startup`
+- `jsk_robot_startup`
+- `peppereus`
+- `pr2_base_trajectory_action`
+
+These packages were explicitly ignored:
+- `pepper_bringup`
+- `pepper_description`
+
+Version of package(s) in repository `jsk_robot`:
+- upstream repository: https://github.com/jsk-ros-pkg/jsk_robot.git
+- release repository: https://github.com/tork-a/jsk_robot-release.git
+- rosdistro version: `0.0.5-0`
+- old version: `0.0.5-0`
+- new version: `0.0.6-0`
+
+Versions of tools used:
+- bloom version: `0.5.19`
+- catkin_pkg version: `0.2.8`
+- rosdep version: `0.11.2`
+- rosdistro version: `0.4.2`
+- vcstools version: `0.1.36`
+
+
 ## jsk_robot (hydro) - 0.0.6-0
 
 The packages in the `jsk_robot` repository were released into the `hydro` distro by running `/var/lib/jenkins/send_to_bloom.py jsk-ros-pkg jsk_robot` on `Fri, 10 Apr 2015 10:27:17 -0000`
