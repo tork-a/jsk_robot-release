@@ -2,6 +2,11 @@
 Changelog for package peppereus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.6 (2015-04-10)
+------------------
+* pepper-init added
+* Contributors: kochigami
+
 0.0.5 (2015-04-08)
 ------------------
 * change nao_msgs to naoqi_msgs
