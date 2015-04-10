@@ -1,14 +1,14 @@
-From 4297412800f232a7f158516bbd2a2744165c282f Mon Sep 17 00:00:00 2001
+From afd9b98c8324a0a424d91e9874576fc3146aea88 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 30 Jan 2015 15:11:02 +0900
 Subject: [PATCH] they are not released on indigo yet
 
 ---
- package.xml | 4 ++--
+ package.xml |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index d3de4db..96f232a 100644
+index 6fe3324..93f056f 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -7,10 +7,10 @@
@@ -25,5 +25,5 @@ index d3de4db..96f232a 100644
    <export>
    </export>
 -- 
-1.9.1
+1.7.9.5
 
