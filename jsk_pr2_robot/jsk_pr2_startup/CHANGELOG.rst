@@ -2,6 +2,13 @@
 Changelog for package jsk_pr2_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.7 (2015-06-11)
+------------------
+* solve not updating problem after recharge
+* speak the percentage of the battery with min charge
+* [jsk_pr2_startup] warn more detail batrery information
+* Contributors: Yuki Furuta, Chi Wun Au
+
 0.0.6 (2015-04-10)
 ------------------
 

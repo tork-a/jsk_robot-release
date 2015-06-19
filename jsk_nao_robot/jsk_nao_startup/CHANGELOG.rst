@@ -2,6 +2,11 @@
 Changelog for package jsk_nao_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.7 (2015-06-11)
+------------------
+* change name of nao_speech.launch to speech.launch
+* Contributors: Kanae Kochigami
+
 0.0.6 (2015-04-10)
 ------------------
 
