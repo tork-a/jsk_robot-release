@@ -1,0 +1,12 @@
+Source: ros-indigo-peppereus
+Section: misc
+Priority: extra
+Maintainer: Kei Okada <kei.okada@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-diagnostic-aggregator, ros-indigo-euscollada, ros-indigo-nao-pose, ros-indigo-naoqi-driver, ros-indigo-naoqi-sensors, ros-indigo-pepper-description, ros-indigo-pr2eus, ros-indigo-roseus
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-peppereus
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-diagnostic-aggregator, ros-indigo-nao-pose, ros-indigo-naoqi-driver, ros-indigo-naoqi-sensors, ros-indigo-pepper-description, ros-indigo-pr2eus, ros-indigo-roseus
+Description: The pepper_bringup package
