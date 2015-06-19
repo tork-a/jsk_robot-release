@@ -35,6 +35,8 @@
      (cons :joint-names (mapcar #'(lambda (n) (if (symbolp n) (symbol-name n) n)) (send-all (send robot :joint-list) :name))))
     ))
   ;;
+  (:error-vector () (map float-vector #'rad2deg (send self :state :effort)))
+  ;;
   (:servo-on () (send self :send-stiffness-controller 1.0))
   (:servo-off () (send self :send-stiffness-controller 0.0))
   (:send-stiffness-controller
@@ -77,6 +79,12 @@
    (&optional (arm :arms))
    (send self :move-hand 0.0 arm)
    )
+   (:speak
+   (str)
+   (let ((speech_msg (instance std_msgs::String :init)))
+     (send speech_msg :data str)
+     (ros::publish "/speech" speech_msg))
+   )
   (:stop-grasp
    (&optional (arm :arms))
    (send self :move-hand 1.0 arm)
@@ -115,6 +123,18 @@
   (:go-stop
    ()
    (send self :go-velocity 0 0 0 0 :stop nil))
+  (:play-audio-file (file)
+   (let (ret)
+     (ros::wait-for-service "nao_audio/play_file")
+     (setq ret (instance nao_interaction_msgs::AudioPlaybackRequest :init))
+     (send ret :file_path :data file)
+     (setq ret (ros::service-call "nao_audio/play_file" ret))))
+  (:set-master-volume (volume)
+   (let (ret)
+     (ros::wait-for-service "nao_audio/master_volume")
+     (setq ret (instance nao_interaction_msgs::AudioMasterVolumeRequest :init))
+     (send ret :master_volume :data volume)
+     (setq ret (ros::service-call "nao_audio/master_volume" ret))))
   )
 
 ;;
