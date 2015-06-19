@@ -1,14 +1,14 @@
-From dbdbf52eb14962cfe091e08604c18794410a69f9 Mon Sep 17 00:00:00 2001
+From 9bab3aa20f8d14e5355d4611b99b70d45d54b557 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:04:47 +0900
 Subject: [PATCH] disable face_recognition
 
 ---
- package.xml |    2 +-
+ package.xml | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.xml b/package.xml
-index c74a8b8..9ae2565 100644
+index 1f6cc16..9a2bf6f 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -35,7 +35,7 @@
@@ -21,5 +21,5 @@ index c74a8b8..9ae2565 100644
  
    <export>
 -- 
-1.7.9.5
+1.9.1
 
