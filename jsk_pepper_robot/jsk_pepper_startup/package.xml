@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>jsk_pepper_startup</name>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <description>The jsk_pepper_startup package</description>
 
   <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
@@ -12,9 +12,11 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <run_depend>nao_apps</run_depend>
   <run_depend>nao_interaction_launchers</run_depend>
   <run_depend>nao_interaction_msgs</run_depend>
   <run_depend>pepper_bringup</run_depend>
+  <run_depend>pepper_description</run_depend>
   <run_depend>topic_tools</run_depend>
   <run_depend>turtlebot_teleop</run_depend>
   <run_depend>image_view</run_depend>
