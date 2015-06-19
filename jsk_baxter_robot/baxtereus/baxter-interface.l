@@ -1,5 +1,5 @@
 (load "package://pr2eus/robot-interface.l")
-(require :baxter "package://baxtereus//baxter.l")
+(require :baxter "package://baxtereus//baxter-util.l")
 (load "package://pr2eus/speak.l")
 (ros::load-ros-manifest "control_msgs")
 (ros::load-ros-manifest "baxter_core_msgs")
@@ -14,7 +14,7 @@
 			      right-gripper-type left-gripper-type))
 (defmethod baxter-interface
   (:init (&rest args)
-   (prog1 (send-super :init :robot baxter-robot :joint-states-topic "/robot/joint_states" :groupname "baxter_interface")
+   (prog1 (send-super* :init :robot baxter-robot :joint-states-topic "/robot/joint_states" :groupname "baxter_interface" args)
      (send self :add-controller :larm-controller)
      (send self :add-controller :rarm-controller)
      (send self :add-controller :head-controller)
@@ -76,7 +76,7 @@
      (cons :controller-action "/robot/head/head_action")
      (cons :controller-state "/robot/head/head_state")
      (cons :action-type control_msgs::SingleJointPositionAction)
-     (cons :joint-names (list "head-neck-y")))))
+     (cons :joint-names (list "head_pan")))))
   (:close-head-camera ()
     (send self :close-camera "head_camera")
     )
@@ -244,14 +244,32 @@
 		 (when (= (length avs) 3) ;; when input avs is 1 or 2
 		   (setq avs (append avs (list (elt avs 2))))
 		   (setq tms (append tms (list 50))))
+     (setq ctype (or ctype controller-type))  ;; use default if ctype is nil
 		 (send-super :angle-vector-sequence avs tms ctype start-time :scale scale :min-time min-time))
-  )
+  
+  (:ros-state-callback
+   (msg)
+   (let ((robot-state-names (cdr (assoc :name robot-state))) (robot-msg-names (send msg :name)) (torso-index))
+     ;;Remove toros_t0 . We think this is not the rotational-joint
+     (setq torso-index (position "torso_t0" robot-msg-names :test #'string=))
+     (send msg :name ( remove "torso_t0" robot-state-names :test #'string=))
+     (when torso-index
+       (dolist (key '(:position :velocity :effort) )
+         (send msg key (concatenate float-vector 
+                                    (subseq (send msg key) 0 torso-index)
+                                    (subseq (send msg key) (+ torso-index 1))))))
+     ;;End of Removing torso_t0
+     (send-super :ros-state-callback msg)
+     ))
+  ) ;; defclass baxter-interface
 
 
-(defun baxter-init ()
+(defun baxter-init (&key (safe t) (type :default-controller))
   (if (not (boundp '*ri*))
-      (setq *ri* (instance baxter-interface :init)))
+      (setq *ri* (instance baxter-interface :init :type type)))
   (if (not (boundp '*baxter*))
-      (setq *baxter* (instance baxter-robot :init)))
+      (if safe
+	  (setq *baxter* (instance baxter-robot-safe :init))
+	(setq *baxter* (instance baxter-robot :init))))
   (send *ri* :calib-grasp :arms)
   )
