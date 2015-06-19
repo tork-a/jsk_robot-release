@@ -1,14 +1,14 @@
-From b2ab0d938a77374f457f2576042a3fdbad86fd7a Mon Sep 17 00:00:00 2001
+From be654f57a8a6bfd7dfc8d0f0b76acc56d144945e Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 30 Jan 2015 15:08:07 +0900
 Subject: [PATCH] they are not released on indigo yet
 
 ---
- package.xml |    6 +++---
+ package.xml | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index 232f21c..89e6cd4 100644
+index 63ddf5f..54a1b74 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -16,9 +16,9 @@
@@ -25,5 +25,5 @@ index 232f21c..89e6cd4 100644
    <run_depend>pr2eus</run_depend>
  
 -- 
-1.7.9.5
+1.9.1
 
