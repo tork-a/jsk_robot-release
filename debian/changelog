@@ -1,0 +1,52 @@
+ros-hydro-pr2-base-trajectory-action (0.0.8-0precise) precise; urgency=high
+
+
+
+ -- saito <t@t.com>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-hydro-pr2-base-trajectory-action (0.0.7-0precise) precise; urgency=high
+
+
+
+ -- saito <t@t.com>  Wed, 10 Jun 2015 15:00:00 -0000
+
+ros-hydro-pr2-base-trajectory-action (0.0.6-0precise) precise; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-hydro-pr2-base-trajectory-action (0.0.5-0precise) precise; urgency=high
+
+
+
+ -- saito <t@t.com>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-hydro-pr2-base-trajectory-action (0.0.4-0precise) precise; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-hydro-pr2-base-trajectory-action (0.0.3-0precise) precise; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-hydro-pr2-base-trajectory-action (0.0.2-0precise) precise; urgency=high
+
+  * add install commands to cmake
+  * Contributors: Kei Okada
+
+ -- saito <t@t.com>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-hydro-pr2-base-trajectory-action (0.0.1-0precise) precise; urgency=high
+
+  * fix version number
+  * move pr2 related package under jsk_pr2_robot
+  * Contributors: Kei Okada, Yuto Inagaki
+
+ -- saito <t@t.com>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
