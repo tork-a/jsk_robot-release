@@ -1,0 +1,12 @@
+Source: ros-indigo-jsk-nao-startup
+Section: misc
+Priority: extra
+Maintainer: Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-naoqi-driver, ros-indigo-roseus, ros-indigo-rostwitter
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-jsk-nao-startup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-nao-interaction-msgs, ros-indigo-naoqi-driver, ros-indigo-roseus, ros-indigo-rostwitter
+Description: The jsk_nao_startup package
