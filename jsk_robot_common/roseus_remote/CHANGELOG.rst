@@ -2,6 +2,9 @@
 Changelog for package roseus_remote
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.8 (2015-07-16)
+------------------
+
 0.0.7 (2015-06-11)
 ------------------
 * [roseus_remote] Remove null characters from the strings from server and
