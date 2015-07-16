@@ -1,0 +1,53 @@
+ros-indigo-jsk-nao-startup (0.0.8-0saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-indigo-jsk-nao-startup (0.0.7-0saucy) saucy; urgency=high
+
+  * change name of nao_speech.launch to speech.launch
+  * Contributors: Kanae Kochigami
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 10 Jun 2015 15:00:00 -0000
+
+ros-indigo-jsk-nao-startup (0.0.6-0saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-indigo-jsk-nao-startup (0.0.5-0saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-indigo-jsk-nao-startup (0.0.4-0saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-nao-startup (0.0.3-0saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-nao-startup (0.0.2-0saucy) saucy; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-nao-startup (0.0.1-0saucy) saucy; urgency=high
+
+  * nao_vision and audio launch added
+  * update nao_driver -> naoqi_driver
+  * add jsk_nao_startup
+  * Contributors: Yuki Furuta, Kanae Kochigami
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
