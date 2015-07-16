@@ -1,6 +1,7 @@
 <launch>
   <node pkg="jsk_robot_startup" type="start_launch_sound.py"
         name="start_launch_sound" />
+  <arg name="map_frame" defualt="eng2" />
   <arg name="launch_openni" default="false" />
   <arg name="launch_move_base" default="true" />
   <arg name="launch_imagesift" default="false" />
@@ -18,11 +19,13 @@
   <arg name="slow_camera_framerate" default="true" />
   <arg name="launch_c3_startup" default="false" />
   <arg name="USER_NAME" default="false" />
-  <include file="$(find jsk_pr2_startup)/jsk_pr2.machine" />
+  <include file="$(find jsk_pr2_startup)/jsk_pr2.machine"
+           if="$(arg launch_c3_startup)" />
+  <include file="$(find pr2_machine)/$(env ROBOT).machine"
+           unless="$(arg launch_c3_startup)" />
   <param name="/active_user/launch_user_name" value="$(arg USER_NAME)"/>
 
-  <!-- launch jsk-defined pr2_2dnav that respawn for change inflation_radius
-       <include file="$(find pr2_2dnav)/pr2_2dnav.launch" /> -->
+  <!-- launch jsk-defined pr2_2dnav that respawn for change inflation_radius -->
   <include if="$(arg launch_move_base)"
            file="$(find jsk_pr2_startup)/jsk_pr2_move_base/pr2_2dnav.launch" />
 
@@ -36,7 +39,7 @@
        <node name="dynamic_tf_publisher" pkg="dynamic_tf_publisher"
        type="tf_publish.py" /> -->
 
-  <include file="$(find jsk_maps)/launch/start_map_eng2.launch">
+  <include file="$(find jsk_maps)/launch/start_map_$(arg map_frame).launch">
     <arg name="MACHINE" value="c2" />
   </include>
 
@@ -110,6 +113,7 @@
   <!-- for iPad or android apps -->
   <include if="$(arg launch_jsk_pcl)"
            file="$(find jsk_pcl_ros)/launch/pointcloud_screenpoint.launch" >
+    <arg name="image" value="/kinect_head/rgb" />
     <arg name="cloud_machine" value="c2" />
     <arg name="camera_info" value="camera_info_input_mux"/>
     <arg name="points" value="points_input_mux"/>
