@@ -16,7 +16,7 @@
    (send-super* :init :robot robot :type type :groupname "naoqi_interface" args)
    (ros::advertise "cmd_pose" geometry_msgs::Pose2D 1)
    (ros::advertise "cmd_vel" geometry_msgs::Twist 1)
-   (ros::advertise "speech" std_msgs::String 1)
+   (ros::advertise "/speech" std_msgs::String 1)
    (ros::advertise "joint_angles" naoqi_msgs::JointAnglesWithSpeed 1)
    (setq joint-stiffness-trajectory-action
 	 (instance ros::simple-action-client :init
@@ -146,6 +146,33 @@
 (defmethod pepper-interface
   (:init (&rest args)
    (send-super* :init :robot pepper-robot args))
+  (:send-stiffness-controller
+   (joint  stiffness)
+   (let ((goal (send joint-stiffness-trajectory-action :make-goal-instance))
+	 joint-name)
+     (send goal :header :seq 1)
+     (send goal :header :stamp (ros::time-now))
+     (case joint  
+       (:larm
+	(setq joint-name (list "LArm")))
+       (:rarm 
+	(setq joint-name (list "RArm")))
+       (:head
+	(setq joint-name (list "Head")))
+       (:lhand
+	(setq joint-name (list "LHand")))
+       (:rhand
+	(setq joint-name (list "RHand")))
+       )
+     (send goal :goal :trajectory :joint_names joint-name)
+     (send goal :goal :trajectory :header :stamp (ros::time-now))
+     (send goal :goal :trajectory :points
+	   (list (instance trajectory_msgs::JointTrajectoryPoint
+			   :init
+			   :positions (fill (instantiate float-vector (length joint-name)) stiffness)
+			   :time_from_start (ros::time 1))))
+     (send joint-stiffness-trajectory-action :send-goal goal)
+     ))
   (:servo-on () (call-empty-service "wakeup"))
   (:servo-off () (call-empty-service "rest"))
   )
