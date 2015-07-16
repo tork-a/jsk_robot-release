@@ -1,14 +1,14 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Changelog for package jsk_nao_startup
+Changelog for package jsk_robot_utils
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 0.0.8 (2015-07-16)
 ------------------
+* [jsk_robot_utils] Add jsk_robot_utils package and move script to compress/decompress joint angles from jsk_network_tools to jsk_robot_utils
+* Contributors: Ryohei Ueda
 
 0.0.7 (2015-06-11)
 ------------------
-* change name of nao_speech.launch to speech.launch
-* Contributors: Kanae Kochigami
 
 0.0.6 (2015-04-10)
 ------------------
@@ -27,7 +27,3 @@ Changelog for package jsk_nao_startup
 
 0.0.1 (2014-12-25)
 ------------------
-* nao_vision and audio launch added
-* update nao_driver -> naoqi_driver
-* add jsk_nao_startup
-* Contributors: Yuki Furuta, Kanae Kochigami
