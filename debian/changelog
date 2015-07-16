@@ -1,0 +1,51 @@
+ros-indigo-jsk-pr2-calibration (0.0.8-0trusty) trusty; urgency=high
+
+
+
+ -- Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-calibration (0.0.7-0trusty) trusty; urgency=high
+
+
+
+ -- Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>  Wed, 10 Jun 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-calibration (0.0.6-0trusty) trusty; urgency=high
+
+
+
+ -- Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-calibration (0.0.5-0trusty) trusty; urgency=high
+
+
+
+ -- Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-calibration (0.0.4-0trusty) trusty; urgency=high
+
+
+
+ -- Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-calibration (0.0.3-0trusty) trusty; urgency=high
+
+
+
+ -- Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-calibration (0.0.2-0trusty) trusty; urgency=high
+
+
+
+ -- Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-calibration (0.0.1-0trusty) trusty; urgency=high
+
+  * Remove generate file
+  * Add utility package to generate JSK-style pr2 urdf
+  * Contributors: Ryohei Ueda
+
+ -- Ryohei Ueda <ueda@jsk.t.u-tokyo.ac.jp>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
