@@ -1,0 +1,12 @@
+Source: ros-indigo-baxtereus
+Section: misc
+Priority: extra
+Maintainer: Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-collada-urdf, ros-indigo-euscollada, ros-indigo-pr2eus, ros-indigo-roseus, ros-indigo-rostest
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-baxtereus
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-baxter-description, ros-indigo-baxter-interface, ros-indigo-baxter-tools, ros-indigo-collada-urdf, ros-indigo-euscollada, ros-indigo-pr2eus, ros-indigo-roseus, ros-indigo-rostest
+Description: The baxtereus package
