@@ -1,0 +1,59 @@
+ros-hydro-roseus-remote (0.0.8-0raring) raring; urgency=high
+
+
+
+ -- Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-hydro-roseus-remote (0.0.7-0raring) raring; urgency=high
+
+  * [roseus_remote] Remove null characters from the strings from server and
+    return result from $ macro.
+    You can use $ like:
+    (setq awesome-code-result ($ (awesome-code)))
+  * [roseus_remote] Add LAUNCH_PREFIX argument to roseus_eusserver.launch and
+    roseus_eusclient.launch to use ports which require super user permission
+  * [remote_roseus] Add client in euslisp implementation
+  * [roseus_remote] use ros::spin instead of ros::spin-once loop
+  * [roseus_remote] add server powered by roseus
+  * [jsk_robot] add roseus remote server/client for silverhummer
+  * Contributors: Yuki Furuta, Ryohei Ueda
+
+ -- Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>  Wed, 10 Jun 2015 15:00:00 -0000
+
+ros-hydro-roseus-remote (0.0.6-0raring) raring; urgency=high
+
+
+
+ -- Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-hydro-roseus-remote (0.0.5-0raring) raring; urgency=high
+
+
+
+ -- Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-hydro-roseus-remote (0.0.4-0raring) raring; urgency=high
+
+
+
+ -- Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-hydro-roseus-remote (0.0.3-0raring) raring; urgency=high
+
+
+
+ -- Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-hydro-roseus-remote (0.0.2-0raring) raring; urgency=high
+
+
+
+ -- Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-hydro-roseus-remote (0.0.1-0raring) raring; urgency=high
+
+
+
+ -- Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
