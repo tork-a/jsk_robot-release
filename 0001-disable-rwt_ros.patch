@@ -1,14 +1,14 @@
-From 3cbbb2510e2b555db0762b4d4cb6bce7789b816d Mon Sep 17 00:00:00 2001
+From 18f4f037c064396794213924f30678bd7b46bd83 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:02:21 +0900
 Subject: [PATCH] disable rwt_ros
 
 ---
- package.xml | 12 ++++++------
+ package.xml |   12 ++++++------
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index fdc0412..b1377a4 100644
+index 431060f..d7551b6 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -10,16 +10,16 @@
@@ -35,5 +35,5 @@ index fdc0412..b1377a4 100644
    <run_depend>robot_state_publisher</run_depend>
    <!-- <run_depend>joint_state_publisher</run_depend> -->
 -- 
-1.9.1
+1.7.9.5
 
