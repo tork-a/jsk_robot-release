@@ -2,6 +2,9 @@
 Changelog for package jsk_baxter_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.8 (2015-07-16)
+------------------
+
 0.0.7 (2015-06-11)
 ------------------
 * [jsk_baxter_startup]add mongodb_launch option
