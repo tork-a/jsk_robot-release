@@ -1,0 +1,81 @@
+ros-hydro-jsk-robot-startup (0.0.9-0raring) raring; urgency=high
+
+  * [jsk_robot_startup] Modify node name of gmapping and pointcloud_to_laserscan
+  * [jsk_robot_startup] Add respawn to gmapping
+  * [jsk_robot_startup] Add angle_max and angle_min arguments to determine horizontal scan range
+  * [jsk_robot_startup] Fix x, y and yaw of pointcloud_toscan_base to parent, roll and pitch to /odom
+  * [jsk_robot_startup] Fix roll and pitch angle of cosntant height frame same as /odom
+  * [jsk_robot_startup] Add gmapping to run_depend
+  * [jsk_robot_startup] Add scripts and launch files for gmapping
+  * [jsk_robot_startup] support daemon mode mongod; enable replication to jsk robot-database
+  * Contributors: Iori Kumagai, Yuki Furuta
+
+ -- inagaki <inagaki@todo.todo>  Sun, 02 Aug 2015 15:00:00 -0000
+
+ros-hydro-jsk-robot-startup (0.0.8-0raring) raring; urgency=high
+
+
+
+ -- inagaki <inagaki@todo.todo>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-hydro-jsk-robot-startup (0.0.7-0raring) raring; urgency=high
+
+
+
+ -- inagaki <inagaki@todo.todo>  Wed, 10 Jun 2015 15:00:00 -0000
+
+ros-hydro-jsk-robot-startup (0.0.6-0raring) raring; urgency=high
+
+
+
+ -- inagaki <inagaki@todo.todo>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-hydro-jsk-robot-startup (0.0.5-0raring) raring; urgency=high
+
+  * [jsk_baxter_startup] update to add position diff paramter for tweet
+  * [jsk_baxter_startup] modify to prevent baxter.launch fail
+  * [jsk_robot_startup/package.xml: add diagnostic_msgs, pr2_mechanism_controllers, sensor_msgs to build dependencies
+  * [sk_robot_startup/CMakeLists.txt] update to set permission for installed script files
+  * [jsk_robot_startup] modfiy CMakeLists.txt to install jsk_robot_startup correctly
+  * [jsk_robot_startup/lifelog/active_user.l] repair tweet lifelog
+  * [jsk_robot_startup/lifelog/mongodb.launch] fix typo of option in launch
+  * [jsk_robot_startup/lifelog/mongodb.launch: add mongodb launch; mongod kill watcher
+  * Contributors: Yuki Furuta, Yuto Inagaki
+
+ -- inagaki <inagaki@todo.todo>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-hydro-jsk-robot-startup (0.0.4-0raring) raring; urgency=high
+
+
+
+ -- inagaki <inagaki@todo.todo>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-hydro-jsk-robot-startup (0.0.3-0raring) raring; urgency=high
+
+
+
+ -- inagaki <inagaki@todo.todo>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-hydro-jsk-robot-startup (0.0.2-0raring) raring; urgency=high
+
+
+
+ -- inagaki <inagaki@todo.todo>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-hydro-jsk-robot-startup (0.0.1-0raring) raring; urgency=high
+
+  * check joint state and set movep for odom disable robot
+  * Add sound when launching pr2.launch
+  * Say something at the end of pr2.launch
+  * move twitter related program to robot_common from jsk_pr2_startup
+  * add ros-info
+  * robot time signal
+  * add tweet.l, see jsk_nao_startup.launch for example
+  * repiar mongodb.launch
+  * repair mongodb.launch and add param
+  * add jsk_robot_common/jsk_robot_startup
+  * Contributors: Kanae Kochigami, Ryohei Ueda, Yuto Inagaki, Yusuke Furuta
+
+ -- inagaki <inagaki@todo.todo>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
