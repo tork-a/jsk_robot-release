@@ -1,4 +1,4 @@
-From 18f4f037c064396794213924f30678bd7b46bd83 Mon Sep 17 00:00:00 2001
+From 9bea3708240a7e0fe0be16e8bcf39305a929d138 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Thu, 25 Dec 2014 02:02:21 +0900
 Subject: [PATCH] disable rwt_ros
@@ -8,7 +8,7 @@ Subject: [PATCH] disable rwt_ros
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index 431060f..d7551b6 100644
+index 2e3b281..87b4bdb 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -10,16 +10,16 @@
