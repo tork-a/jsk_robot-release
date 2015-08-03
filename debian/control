@@ -1,0 +1,12 @@
+Source: ros-hydro-jsk-pepper-startup
+Section: misc
+Priority: extra
+Maintainer: Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-catkin, ros-hydro-rostest
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-hydro-jsk-pepper-startup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-image-view, ros-hydro-joy, ros-hydro-nao-apps, ros-hydro-nao-interaction-launchers, ros-hydro-nao-interaction-msgs, ros-hydro-pepper-bringup, ros-hydro-pepper-description, ros-hydro-roseus, ros-hydro-rostwitter, ros-hydro-topic-tools, ros-hydro-turtlebot-teleop
+Description: The jsk_pepper_startup package
