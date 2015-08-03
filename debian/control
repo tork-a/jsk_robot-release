@@ -1,0 +1,12 @@
+Source: ros-hydro-jsk-201504-miraikan
+Section: misc
+Priority: extra
+Maintainer: Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-catkin, ros-hydro-jsk-pepper-startup, ros-hydro-peppereus
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-hydro-jsk-201504-miraikan
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-jsk-pepper-startup, ros-hydro-peppereus
+Description: The jsk_201504_miraikan package
