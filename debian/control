@@ -1,0 +1,12 @@
+Source: ros-hydro-pr2-base-trajectory-action
+Section: misc
+Priority: extra
+Maintainer: saito <t@t.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-actionlib, ros-hydro-actionlib-msgs, ros-hydro-angles, ros-hydro-catkin, ros-hydro-geometry-msgs, ros-hydro-nav-msgs, ros-hydro-pr2-controllers-msgs, ros-hydro-pr2-mechanism-model, ros-hydro-roscpp, ros-hydro-trajectory-msgs
+Homepage: http://ros.org/wiki/pr2_base_trajectory_action
+Standards-Version: 3.9.2
+
+Package: ros-hydro-pr2-base-trajectory-action
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-actionlib, ros-hydro-actionlib-msgs, ros-hydro-angles, ros-hydro-geometry-msgs, ros-hydro-nav-msgs, ros-hydro-pr2-controllers-msgs, ros-hydro-pr2-mechanism-model, ros-hydro-roscpp, ros-hydro-trajectory-msgs
+Description: pr2_base_trajectory_action is a node that exposes and action interface to move robot base along a trajectory.
