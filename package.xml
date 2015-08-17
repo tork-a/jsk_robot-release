@@ -62,7 +62,7 @@
   <run_depend>social_navigation_layers</run_depend>
   <run_depend>pr2_teleop_general</run_depend>
   <run_depend>pr2_arm_kinematics</run_depend>
-  <run_depend>safe_teleop_base</run_depend>
+  <!-- <run_depend>safe_teleop_base</run_depend> -->
   <run_depend>mongodb_log</run_depend>
   <export>
     <rqt_gui plugin="${prefix}/plugin.xml"/>
