@@ -1,3 +1,0 @@
-<launch>
-  <test pkg="baxtereus" type="test-baxter.l" test-name="baxter_lisp" time-limit="500" />
-</launch>
