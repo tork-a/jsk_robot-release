@@ -1,10 +1,10 @@
-From fb5411c2c741bed71462ec29e89d67278eb9722a Mon Sep 17 00:00:00 2001
+From e4375f254a0bedc916aec6f1d6faa61fc93c3620 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Mon, 17 Aug 2015 18:07:13 +0900
 Subject: [PATCH] safe_teleop_base is not released yet
 
 ---
- package.xml | 2 +-
+ package.xml |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.xml b/package.xml
@@ -21,5 +21,5 @@ index 921bab9..c29dd03 100644
    <export>
      <rqt_gui plugin="${prefix}/plugin.xml"/>
 -- 
-1.9.1
+1.7.9.5
 
