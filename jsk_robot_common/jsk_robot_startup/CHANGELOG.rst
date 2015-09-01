@@ -2,6 +2,12 @@
 Changelog for package jsk_robot_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.11 (2015-09-01)
+-------------------
+* [jsk_robot_startup] Add visualization node for viso odom_combined
+* [jsk_robot_startup] Add viso.launch for visual odometry
+* Contributors: Iori Kumagai
+
 0.0.10 (2015-08-16)
 -------------------
 * [jsk_robot_startup] fix camera namespace openni -> kinect_head
