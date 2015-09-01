@@ -2,6 +2,9 @@
 Changelog for package peppereus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.11 (2015-09-01)
+-------------------
+
 0.0.10 (2015-08-16)
 -------------------
 * do not add naoqi_driver in find_package
