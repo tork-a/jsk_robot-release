@@ -2,6 +2,25 @@
 Changelog for package peppereus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.1 (2015-11-19)
+------------------
+* move peppereus under jsk_naoqi_robot
+* naoeus,peppereus: package.xml: fix typo in run_depend, naoqi->naoqieus, nap_apps->nao_apps
+* add naoqieus/cmake/compile_naoqi_modeol.cmake
+* Contributors: Kei Okada, Masahiro Bando
+
+1.0.0 (2015-11-06)
+------------------
+* [pepper-interface.l] update :go-pos for new NoaQi drivers using move_base_simple/goal
+* [pepper-interface.l] update joint action server name space for newer pepper_bringup
+* Contributors: Kei Okada
+
+0.0.13 (2015-11-06)
+-------------------
+
+0.0.12 (2015-11-06)
+-------------------
+
 0.0.11 (2015-09-01)
 -------------------
 
