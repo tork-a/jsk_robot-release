@@ -2,6 +2,25 @@
 Changelog for package jsk_pepper_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.1 (2015-11-19)
+------------------
+* move jsk_pepper_startup under jsk_naoqi_robot
+
+1.0.0 (2015-11-06)
+------------------
+* [launch/jsk_pepper_startup.launch]  use teleop_twist_joy instead of turtlebot_telop
+* [package.xml] add depend to naoqi_bridge and naoqi_dashboard
+* [joy-client.l] use naoqi_bridge_msgs instead of naoqi_msgs, update to pepper_robot/pose namespace
+* [launch/jsk_pepper_startup.launch] remove old nao_app launch files
+* fix to include pepper_full.launch for pepper_bringup > 0.1.4 (#452 <https://github.com/jsk-ros-pkg/jsk_robot/issues/452>)
+* Contributors: Kei Okada
+
+0.0.13 (2015-11-06)
+-------------------
+
+0.0.12 (2015-11-06)
+-------------------
+
 0.0.11 (2015-09-01)
 -------------------
 * set robot/type, robot/name
