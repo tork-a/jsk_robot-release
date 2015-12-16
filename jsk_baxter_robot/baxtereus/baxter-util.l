@@ -40,7 +40,16 @@
              ;; when fail and :rever-if-fail is nil
              (send robot :angle-vector av))
          ))
-     r)))
+     r))
+  (:l/r-reverse
+    (av)
+    "return the other arm's angle vector"
+    (let ((av-tmp (copy-list av)) index)
+      (dotimes (i 4)
+        (setq index (* i 2))
+        (setf (elt av-tmp index) (- (elt av-tmp index))))
+      av-tmp))
+  )
 
 #|
 (baxter)
