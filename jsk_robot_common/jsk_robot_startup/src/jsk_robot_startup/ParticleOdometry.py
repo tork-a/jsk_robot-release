@@ -3,7 +3,6 @@
 import rospy
 import numpy
 import scipy.stats
-import math
 import random
 import threading
 import itertools
@@ -14,32 +13,8 @@ import copy
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Empty
 from sensor_msgs.msg import Imu
-from geometry_msgs.msg import PoseWithCovariance, TwistWithCovariance, Twist, Pose, Point, Quaternion, Vector3
-
-# scipy.stats.multivariate_normal only can be used after SciPy 0.14.0
-# input: x(array), mean(array), cov(matrix) output: probability of x
-def norm_pdf_multivariate(x, mean, cov):
-    size = len(x)
-    if size == len(mean) and (size, size) == cov.shape:
-        det = numpy.linalg.det(cov)
-        if not det > 0:
-            rospy.logwarn("Determinant {0} is equal or smaller than zero".format(det))
-            return 0.0
-        norm_const = math.pow((2*numpy.pi),float(size)/2) * math.pow(det,1.0/2)
-        if not norm_const > 0 :
-            rospy.logwarn("Norm const {0} is equal or smaller than zero".format(norm_const))
-            return 0.0
-        x_mean = numpy.matrix(x - mean)
-        inv = cov.I
-        exponent = -0.5 * (x_mean * inv * x_mean.T)
-        if exponent > 0:
-            rospy.logwarn("Exponent {0} is larger than zero".format(exponent))
-            exponent = 0
-        result = math.pow(math.e, exponent)
-        return result / norm_const
-    else:
-        rospy.logwarn("The dimensions of the input don't match")
-        return 0.0
+from geometry_msgs.msg import PoseWithCovariance, TwistWithCovariance, Twist, Pose, Point, Quaternion, Vector3, TransformStamped
+from odometry_utils import norm_pdf_multivariate, transform_quaternion_to_euler, transform_local_twist_to_global, transform_local_twist_covariance_to_global, update_pose, update_pose_covariance, broadcast_transform
 
 class ParticleOdometry(object):
     ## initialize
@@ -54,51 +29,49 @@ class ParticleOdometry(object):
         self.odom_init_frame = rospy.get_param("~odom_init_frame", "odom_init")
         self.z_error_sigma = rospy.get_param("~z_error_sigma", 0.01) # z error probability from source. z is assumed not to move largely from source odometry
         self.use_imu = rospy.get_param("~use_imu", False)
+        self.use_imu_yaw = rospy.get_param("~use_imu_yaw", False) # referenced only when use_imu is True
         self.roll_error_sigma = rospy.get_param("~roll_error_sigma", 0.05) # roll error probability from imu. (referenced only when use_imu is True)
         self.pitch_error_sigma = rospy.get_param("~pitch_error_sigma", 0.05) # pitch error probability from imu. (referenced only when use_imu is True)
+        self.yaw_error_sigma = rospy.get_param("~yaw_error_sigma", 0.1) # yaw error probability from imu. (referenced only when use_imu and use_imu_yaw are both True)
         self.min_weight = rospy.get_param("~min_weight", 1e-10)
         self.r = rospy.Rate(self.rate)
         self.lock = threading.Lock()
         self.odom = None
         self.source_odom = None
         self.measure_odom = None
+        self.imu = None
+        self.imu_rotation = None
         self.particles = None
         self.weights = []
         self.measurement_updated = False
-        self.init_sigma = [rospy.get_param("~init_sigma_x", 0.3),
-                           rospy.get_param("~init_sigma_y", 0.3),
+        self.prev_rpy = None
+        self.init_sigma = [rospy.get_param("~init_sigma_x", 0.1),
+                           rospy.get_param("~init_sigma_y", 0.1),
                            rospy.get_param("~init_sigma_z", 0.0001),
                            rospy.get_param("~init_sigma_roll", 0.0001),
                            rospy.get_param("~init_sigma_pitch", 0.0001),
-                           rospy.get_param("~init_sigma_yaw", 0.2)]
+                           rospy.get_param("~init_sigma_yaw", 0.05)]
         # tf
-        self.listener = tf.TransformListener(True, rospy.Duration(10))
-        self.broadcast = tf.TransformBroadcaster()
-        self.publish_tf = rospy.get_param("~publish_tf", True)
-        self.invert_tf = rospy.get_param("~invert_tf", True)
+        self.publish_tf = rospy.get_param("~publish_tf", True)        
+        if self.publish_tf:
+            self.broadcast = tf.TransformBroadcaster()
+            self.invert_tf = rospy.get_param("~invert_tf", True)
         # publisher
-        self.pub = rospy.Publisher("~output", Odometry, queue_size=10)
+        self.pub = rospy.Publisher("~output", Odometry, queue_size = 1)
         # subscriber
-        self.source_odom_sub = rospy.Subscriber("~source_odom", Odometry, self.source_odom_callback, queue_size = 100)
-        self.measure_odom_sub = rospy.Subscriber("~measure_odom", Odometry, self.measure_odom_callback, queue_size = 100)
-        self.imu_sub = rospy.Subscriber("~imu", Imu, self.imu_callback, queue_size = 100)
-        self.init_signal_sub = rospy.Subscriber("~init_signal", Empty, self.init_signal_callback, queue_size = 10)
+        self.source_odom_sub = rospy.Subscriber("~source_odom", Odometry, self.source_odom_callback, queue_size = 10)
+        self.measure_odom_sub = rospy.Subscriber("~measure_odom", Odometry, self.measure_odom_callback, queue_size = 10)
+        self.imu_sub = rospy.Subscriber("~imu", Imu, self.imu_callback, queue_size = 10) # imu is assumed to be in base_link_frame relative coords
+        self.init_transform_sub = rospy.Subscriber("~initial_base_link_transform", TransformStamped, self.init_transform_callback) # init_transform is assumed to be transform of init_odom -> base_link
         # init
-        self.initialize_odometry()
+        self.initialize_odometry([0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 1.0])
 
-    def initialize_odometry(self):
-        try:
-            (trans,rot) = self.listener.lookupTransform(self.odom_init_frame, self.base_link_frame, rospy.Time(0))
-        except:
-            rospy.logwarn("[%s] failed to solve tf in initialize_odometry: %s to %s", rospy.get_name(), self.odom_init_frame, self.base_link_frame)
-            trans = [0.0, 0.0, 0.0]
-            rot = [0.0, 0.0, 0.0, 1.0]
-        rospy.loginfo("[%s]: initiailze odometry ", rospy.get_name())
+    def initialize_odometry(self, trans, rot):
         with self.lock:
             self.particles = self.initial_distribution(Pose(Point(*trans), Quaternion(*rot)))
             self.weights = [1.0 / self.particle_num] * int(self.particle_num)
             self.odom = Odometry()
-            mean, cov = self.guess_normal_distribution(self.particles)
+            mean, cov = self.guess_normal_distribution(self.particles, self.weights)
             self.odom.pose.pose = self.convert_list_to_pose(mean)
             self.odom.pose.covariance = list(itertools.chain(*cov))
             self.odom.twist.twist = Twist(Vector3(0, 0, 0), Vector3(0, 0, 0))
@@ -110,15 +83,18 @@ class ParticleOdometry(object):
             self.measure_odom = None
             self.measurement_updated = False
             self.imu = None
+            self.imu_rotation = None
+            self.prev_rpy = None
             
     ## particle filter functions
     # input: particles(list of pose), source_odom(control input)  output: list of sampled particles(pose)
     def sampling(self, particles, source_odom):
-        current_time = source_odom.header.stamp
         global_twist_with_covariance = self.transform_twist_with_covariance_to_global(source_odom.pose, source_odom.twist)
-        return [self.state_transition_probability_rvs(prt, global_twist_with_covariance.twist, global_twist_with_covariance.covariance, current_time) for prt in particles]
+        sampled_velocities = self.state_transition_probability_rvs(global_twist_with_covariance.twist, global_twist_with_covariance.covariance) # make sampeld velocity at once because multivariate_normal calculates invert matrix and it is slow
+        dt = (source_odom.header.stamp - self.odom.header.stamp).to_sec()
+        return [update_pose(prt, Twist(Vector3(*vel[0:3]), Vector3(*vel[3:6])), dt) for prt, vel in zip(particles, sampled_velocities)]
         
-    # input: particles(list of pose), source_odom(control input), measure_odom(measurement),  min_weight(float) output: list of weights
+    # input: particles(list of pose), min_weight(float) output: list of weights
     def weighting(self, particles, min_weight):
         if not self.measure_odom:
             rospy.logwarn("[%s] measurement does not exist.", rospy.get_name())
@@ -126,15 +102,21 @@ class ParticleOdometry(object):
         else:
             measure_to_source_dt = (self.source_odom.header.stamp - self.measure_odom.header.stamp).to_sec() # adjust timestamp of pose in measure_odom to source_odom
             current_measure_pose_with_covariance = self.update_pose_with_covariance(self.measure_odom.pose, self.measure_odom.twist, measure_to_source_dt) # assuming dt is small and measure_odom.twist is do not change in dt
-            weights = [max(min_weight, self.calculate_weighting_likelihood(prt, current_measure_pose_with_covariance.pose, current_measure_pose_with_covariance.covariance)) for prt in particles]
+            measurement_pose_array = numpy.array(self.convert_pose_to_list(current_measure_pose_with_covariance.pose))
+            try:
+                measurement_cov_matrix_inv = numpy.linalg.inv(numpy.matrix(current_measure_pose_with_covariance.covariance).reshape(6, 6)) # calculate inverse matrix first to reduce computation cost
+                weights = [max(min_weight, self.calculate_weighting_likelihood(prt, measurement_pose_array, measurement_cov_matrix_inv)) for prt in particles]
+            except numpy.linalg.LinAlgError:
+                rospy.logwarn("[%s] covariance matrix is not singular.", rospy.get_name())
+                weights = [min_weight] * len(particles)
             if all([x == min_weight for x in weights]):
                 rospy.logwarn("[%s] likelihood is too small and all weights are limited by min_weight.", rospy.get_name())
             normalization_coeffs = sum(weights) # normalization and each weight is assumed to be larger than 0
             weights = [w / normalization_coeffs for w in weights]
         return weights
 
-    def calculate_weighting_likelihood(self, prt, measurement_pose, measurement_cov):
-        measurement_likelihood = self.measurement_pdf(prt, measurement_pose, measurement_cov)
+    def calculate_weighting_likelihood(self, prt, measurement_pose_array, measurement_cov_matrix_inv):
+        measurement_likelihood = self.measurement_pdf(prt, measurement_pose_array, measurement_cov_matrix_inv)
         z_error_likelihood = self.z_error_pdf(prt.position.z) # consider difference from ideal z height to prevent drift
         if self.use_imu:
             imu_likelihood = self.imu_error_pdf(prt)
@@ -159,24 +141,18 @@ class ParticleOdometry(object):
         return ret_particles
 
     ## probability functions
-    # input: prev_x(pose), u(twist), u_cov(twist.covariance)  output: sampled x
-    def state_transition_probability_rvs(self, prev_x, u, u_cov, current_time): # rvs = Random Varieties Sampling
-        dt = (current_time - self.odom.header.stamp).to_sec()
-        pose_list = self.convert_pose_to_list(prev_x)
+    # input: u(twist), u_cov(twist.covariance)  output: sampled velocity
+    def state_transition_probability_rvs(self, u, u_cov): # rvs = Random Varieties Sampling
         u_mean = [u.linear.x, u.linear.y, u.linear.z,
                   u.angular.x, u.angular.y, u.angular.z]
         u_cov_matrix = zip(*[iter(u_cov)]*6)
-        vel_list = numpy.random.multivariate_normal(u_mean, u_cov_matrix, 1)
-        ret_pose = [x + v * dt for x, v in zip(pose_list, vel_list[0])]
-        return self.convert_list_to_pose(ret_pose)
+        return numpy.random.multivariate_normal(u_mean, u_cov_matrix, int(self.particle_num)).tolist()
 
-    # input: x(pose), mean(pose), cov(pose.covariance), output: pdf value for x
-    def measurement_pdf(self, x, measure_mean, measure_cov): # pdf = Probability Dencity Function
+    # input: x(pose), mean(array), cov_inv(matrix), output: pdf value for x
+    def measurement_pdf(self, x, measure_mean_array, measure_cov_matrix_inv): # pdf = Probability Dencity Function
         # w ~ p(z(t)|x(t))
         x_array = numpy.array(self.convert_pose_to_list(x))
-        mean_array = numpy.array(self.convert_pose_to_list(measure_mean))
-        cov_matrix = numpy.matrix(measure_cov).reshape(len(x_array), len(x_array))
-        pdf_value = norm_pdf_multivariate(x_array, mean_array, cov_matrix) # ~ p(x(t)|z(t))
+        pdf_value = norm_pdf_multivariate(x_array, measure_mean_array, measure_cov_matrix_inv) # ~ p(x(t)|z(t))
         return pdf_value
 
     def z_error_pdf(self, particle_z):
@@ -188,8 +164,13 @@ class ParticleOdometry(object):
             rospy.logwarn("[%s]: use_imu is True but imu is not subscribed", rospy.get_name())
             return 1.0 # multiply 1.0 make no effects to weight
         prt_euler = self.convert_pose_to_list(prt)[3:6]
-        imu_euler = tf.transformations.euler_from_quaternion([self.imu.orientation.x, self.imu.orientation.y, self.imu.orientation.z, self.imu.orientation.w]) # imu.orientation is assumed to be global
-        return scipy.stats.norm.pdf(prt_euler[0] - imu_euler[0], loc = 0.0, scale = self.roll_error_sigma) * scipy.stats.norm.pdf(prt_euler[1] - imu_euler[1], loc = 0.0, scale = self.pitch_error_sigma)
+        imu_matrix = tf.transformations.quaternion_matrix([self.imu.orientation.x, self.imu.orientation.y, self.imu.orientation.z, self.imu.orientation.w])[:3, :3]
+        imu_euler = tf.transformations.euler_from_matrix(numpy.dot(self.imu_rotation, imu_matrix)) # imu is assumed to be in base_link relative and imu_rotation is base_link->particle_odom transformation
+        roll_pitch_pdf = scipy.stats.norm.pdf(prt_euler[0] - imu_euler[0], loc = 0.0, scale = self.roll_error_sigma) * scipy.stats.norm.pdf(prt_euler[1] - imu_euler[1], loc = 0.0, scale = self.pitch_error_sigma)
+        if self.use_imu_yaw:
+            return roll_pitch_pdf * scipy.stats.norm.pdf(prt_euler[2] - imu_euler[2], loc = 0.0, scale = self.yaw_error_sigma)
+        else:
+            return roll_pitch_pdf
 
     # input: init_pose(pose), output: initial distribution of pose(list of pose)
     def initial_distribution(self, init_pose):
@@ -213,15 +194,17 @@ class ParticleOdometry(object):
         self.odom.header.stamp = self.source_odom.header.stamp
         self.odom.twist = self.source_odom.twist
         # estimate gaussian distribution for Odometry msg 
-        mean, cov = self.guess_normal_distribution(self.particles)
+        mean, cov = self.guess_normal_distribution(self.particles, self.weights)
         self.odom.pose.pose = self.convert_list_to_pose(mean)
         self.odom.pose.covariance = list(itertools.chain(*cov))
         self.pub.publish(self.odom)
         if self.publish_tf:
-            self.broadcast_transform()
+            broadcast_transform(self.broadcast, self.odom, self.invert_tf)
+        # update prev_rpy to prevent jump of angles
+        self.prev_rpy = transform_quaternion_to_euler([self.odom.pose.pose.orientation.x, self.odom.pose.pose.orientation.y, self.odom.pose.pose.orientation.z, self.odom.pose.pose.orientation.w], self.prev_rpy)
 
     ## callback functions
-    def source_odom_callback(self, msg):
+    def source_odom_callback(self, msg):        
         with self.lock:
             self.source_odom = msg
 
@@ -230,12 +213,15 @@ class ParticleOdometry(object):
             self.measure_odom = msg
             self.measurement_updated = True # raise measurement flag
 
-    def init_signal_callback(self, msg):
-        # time.sleep(1) # wait to update odom_init frame
-        self.initialize_odometry()
+    def init_transform_callback(self, msg):
+        self.initialize_odometry([getattr(msg.transform.translation, attr) for attr in ["x", "y", "z"]],
+                                 [getattr(msg.transform.rotation, attr) for attr in ["x", "y", "z", "w"]])
 
     def imu_callback(self, msg):
         with self.lock:
+            if self.odom == None:
+                return # cannot calculate imu_rotation
+            self.imu_rotation = numpy.linalg.inv(tf.transformations.quaternion_matrix([getattr(self.odom.pose.pose.orientation, attr) for attr in ["x", "y", "z", "w"]])[:3, :3]) # base_link -> particle_odom
             self.imu = msg
         
     # main functions
@@ -255,84 +241,47 @@ class ParticleOdometry(object):
         
     ## utils
     def convert_pose_to_list(self, pose):
-        euler = tf.transformations.euler_from_quaternion((pose.orientation.x, pose.orientation.y,
-                                                          pose.orientation.z, pose.orientation.w))
+        euler = transform_quaternion_to_euler((pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w), self.prev_rpy)
         return [pose.position.x, pose.position.y, pose.position.z, euler[0], euler[1], euler[2]]
 
     def convert_list_to_pose(self, lst):
         return Pose(Point(*lst[0:3]), Quaternion(*tf.transformations.quaternion_from_euler(*lst[3:6])))
 
-    def guess_normal_distribution(self, particles):
-        particles_lst = [self.convert_pose_to_list(prt) for prt in particles]
-        mean = numpy.mean(particles_lst, axis = 0)
-        cov = numpy.cov(particles_lst, rowvar = 0)
-        return (mean, cov)
+    def guess_normal_distribution(self, particles, weights):
+        # particles_lst = [self.convert_pose_to_list(prt) for prt in particles]
+        # mean = numpy.mean(particles_lst, axis = 0)
+        # cov = numpy.cov(particles_lst, rowvar = 0)
+        
+        # particles_list = [numpy.array(self.convert_pose_to_list(prt)) for prt in particles]
+        # mean = None
+        # cov = None
+        # w2_sum = 0.0
+        # mean = numpy.average(particles_list, axis = 0, weights = weights)
+        # for prt, w in zip(particles_list, weights):
+        #     if cov == None:
+        #         cov = w * numpy.vstack(prt - mean) * (prt - mean)
+        #     else:
+        #         cov += w * numpy.vstack(prt - mean) * (prt - mean)
+        #     w2_sum += w ** 2
+        # cov = (1.0 / (1.0 - w2_sum)) * cov # unbiased covariance
 
-    def broadcast_transform(self):
-        if not self.odom:
-            return
-        position = [self.odom.pose.pose.position.x, self.odom.pose.pose.position.y, self.odom.pose.pose.position.z]
-        orientation = [self.odom.pose.pose.orientation.x, self.odom.pose.pose.orientation.y, self.odom.pose.pose.orientation.z, self.odom.pose.pose.orientation.w]
-        if self.invert_tf:
-            homogeneous_matrix = tf.transformations.quaternion_matrix(orientation)
-            homogeneous_matrix[:3, 3] = numpy.array(position).reshape(1, 3)
-            homogeneous_matrix_inv = numpy.linalg.inv(homogeneous_matrix)
-            position = list(homogeneous_matrix_inv[:3, 3])
-            orientation = list(tf.transformations.quaternion_from_matrix(homogeneous_matrix_inv))
-            parent_frame = self.odom.child_frame_id
-            target_frame = self.odom.header.frame_id
-        else:
-            parent_frame = self.odom.header.frame_id
-            target_frame = self.odom.child_frame_id
-        self.broadcast.sendTransform(position, orientation, rospy.Time.now(), target_frame, parent_frame)
+        # calculate weighted mean and covariance (cf. https://en.wikipedia.org/wiki/Weighted_arithmetic_mean#Weighted_sample_covariance)        
+        particle_array = numpy.array([self.convert_pose_to_list(prt) for prt in particles])
+        weights_array = numpy.array(weights)
+        mean = numpy.average(particle_array, axis = 0, weights = weights_array)
+        diffs = particle_array - mean # array of x - mean
+        cov = numpy.dot((numpy.vstack(weights_array) * diffs).T, diffs) # sum(w * (x - mean).T * (x - mean))
+        cov = (1.0 / (1.0 - sum([w ** 2 for w in weights]))) * cov # unbiased covariance
+        
+        return (mean.tolist(), cov.tolist())
 
-    def transform_twist_with_covariance_to_global(self, pose, twist):
-        trans = [pose.pose.position.x, pose.pose.position.y, pose.pose.position.z]
-        rot = [pose.pose.orientation.x, pose.pose.orientation.y,
-               pose.pose.orientation.z, pose.pose.orientation.w]
-        rotation_matrix = tf.transformations.quaternion_matrix(rot)[:3, :3]
-        twist_cov_matrix = numpy.matrix(twist.covariance).reshape(6, 6)
-        global_velocity = numpy.dot(rotation_matrix, numpy.array([[twist.twist.linear.x],
-                                                                  [twist.twist.linear.y],
-                                                                  [twist.twist.linear.z]]))
-        global_omega = numpy.dot(rotation_matrix, numpy.array([[twist.twist.angular.x],
-                                                               [twist.twist.angular.y],
-                                                               [twist.twist.angular.z]]))
-        global_twist_cov_matrix = numpy.zeros((6, 6))
-        global_twist_cov_matrix[:3, :3] = (rotation_matrix.T).dot(twist_cov_matrix[:3, :3].dot(rotation_matrix))
-        global_twist_cov_matrix[3:6, 3:6] = (rotation_matrix.T).dot(twist_cov_matrix[3:6, 3:6].dot(rotation_matrix))
-
-        return TwistWithCovariance(Twist(Vector3(*global_velocity[:, 0]), Vector3(*global_omega[:, 0])),
-                                   global_twist_cov_matrix.reshape(-1,).tolist())
+    def transform_twist_with_covariance_to_global(self, pose_with_covariance, twist_with_covariance):
+        global_twist = transform_local_twist_to_global(pose_with_covariance.pose, twist_with_covariance.twist)
+        global_twist_cov = transform_local_twist_covariance_to_global(pose_with_covariance.pose, twist_with_covariance.covariance)
+        return TwistWithCovariance(global_twist, global_twist_cov)
 
     def update_pose_with_covariance(self, pose_with_covariance, twist_with_covariance, dt):
-        ret_pose = Pose()
         global_twist_with_covariance = self.transform_twist_with_covariance_to_global(pose_with_covariance, twist_with_covariance)
-        euler = list(tf.transformations.euler_from_quaternion((pose_with_covariance.pose.orientation.x, pose_with_covariance.pose.orientation.y,
-                                                               pose_with_covariance.pose.orientation.z, pose_with_covariance.pose.orientation.w)))
-        # calculate current pose as integration
-        ret_pose.position.x = pose_with_covariance.pose.position.x + global_twist_with_covariance.twist.linear.x * dt
-        ret_pose.position.y = pose_with_covariance.pose.position.y + global_twist_with_covariance.twist.linear.y * dt
-        ret_pose.position.z = pose_with_covariance.pose.position.z + global_twist_with_covariance.twist.linear.z * dt
-        euler[0] += global_twist_with_covariance.twist.angular.x * dt
-        euler[1] += global_twist_with_covariance.twist.angular.y * dt
-        euler[2] += global_twist_with_covariance.twist.angular.z * dt
-        quat = tf.transformations.quaternion_from_euler(*euler)
-        ret_pose.orientation = Quaternion(*quat)
-
-        # update covariance
-        ret_pose_cov = []
-        # make matirx from covarinace array
-        prev_pose_cov_matrix = numpy.matrix(pose_with_covariance.covariance).reshape(6, 6)
-        global_twist_cov_matrix = numpy.matrix(global_twist_with_covariance.covariance).reshape(6, 6)
-        # jacobian matrix
-        # elements in pose and twist are assumed to be independent on global coordinates
-        jacobi_pose = numpy.diag([1.0] * 6)
-        jacobi_twist = numpy.diag([dt] * 6)
-        # covariance calculation
-        pose_cov_matrix = jacobi_pose.dot(prev_pose_cov_matrix.dot(jacobi_pose.T)) + jacobi_twist.dot(global_twist_cov_matrix.dot(jacobi_twist.T))
-        # update covariances as array type (twist is same as before)
-        ret_pose_cov = numpy.array(pose_cov_matrix).reshape(-1,).tolist()
-
+        ret_pose = update_pose(pose_with_covariance.pose, global_twist_with_covariance.twist, dt)
+        ret_pose_cov = update_pose_covariance(pose_with_covariance.covariance, global_twist_with_covariance.covariance, dt)
         return PoseWithCovariance(ret_pose, ret_pose_cov)
-
