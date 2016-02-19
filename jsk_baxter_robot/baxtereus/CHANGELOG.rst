@@ -2,6 +2,11 @@
 Changelog for package baxtereus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.2 (2016-02-14)
+------------------
+* [baxtereus] Add roseus in find_package to generate eus message
+* Contributors: Kentaro Wada
+
 1.0.1 (2015-11-19)
 ------------------
 
