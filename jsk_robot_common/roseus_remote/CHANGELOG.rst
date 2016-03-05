@@ -2,6 +2,9 @@
 Changelog for package roseus_remote
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.3 (2016-03-05)
+------------------
+
 1.0.2 (2016-02-14)
 ------------------
 * [roseus_remote] Fix missing configurations
