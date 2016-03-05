@@ -2,6 +2,11 @@
 Changelog for package naoeus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.3 (2016-03-05)
+------------------
+* add end-coords for nao robot
+* Contributors: Kei Okada
+
 1.0.2 (2016-02-14)
 ------------------
 
