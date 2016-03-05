@@ -2,6 +2,13 @@
 Changelog for package peppereus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.3 (2016-03-05)
+------------------
+* modify service type
+* add :show-app, :show-webview, :s(g)et-show-image-folder-path
+* add :show-image, :show-webview, :hide-image
+* Contributors: Kanae Kochigami
+
 1.0.2 (2016-02-14)
 ------------------
 
