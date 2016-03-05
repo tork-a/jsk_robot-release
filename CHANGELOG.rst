@@ -2,6 +2,9 @@
 Changelog for package jsk_baxter_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.3 (2016-03-05)
+------------------
+
 1.0.2 (2016-02-14)
 ------------------
 * Add tool to relay image topic to display on xdisplay
