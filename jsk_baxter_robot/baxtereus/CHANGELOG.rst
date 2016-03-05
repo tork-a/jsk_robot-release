@@ -2,6 +2,9 @@
 Changelog for package baxtereus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.3 (2016-03-05)
+------------------
+
 1.0.2 (2016-02-14)
 ------------------
 * [baxtereus] Add roseus in find_package to generate eus message
