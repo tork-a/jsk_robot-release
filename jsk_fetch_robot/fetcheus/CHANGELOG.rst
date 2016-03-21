@@ -2,6 +2,13 @@
 Changelog for package fetcheus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.4 (2016-03-21)
+------------------
+* check collad-dom version before convert from urdf to collada
+* test/test-fetcheus.l: add test for fetch-interface
+* fetch-interface.l : fix robot-move-base-interface.l
+* Contributors: Kei Okada
+
 1.0.3 (2016-03-05)
 ------------------
 * add jsk_fetch_robot package
