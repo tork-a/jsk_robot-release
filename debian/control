@@ -1,0 +1,12 @@
+Source: ros-indigo-jsk-robot
+Section: misc
+Priority: extra
+Maintainer: Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-jsk-robot
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-baxtereus, ros-indigo-fetcheus, ros-indigo-jsk-201504-miraikan, ros-indigo-jsk-baxter-desktop, ros-indigo-jsk-baxter-startup, ros-indigo-jsk-baxter-web, ros-indigo-jsk-fetch-startup, ros-indigo-jsk-nao-startup, ros-indigo-jsk-pepper-startup, ros-indigo-jsk-pr2-calibration, ros-indigo-jsk-pr2-startup, ros-indigo-jsk-robot-startup, ros-indigo-jsk-robot-utils, ros-indigo-naoeus, ros-indigo-naoqieus, ros-indigo-peppereus, ros-indigo-pr2-base-trajectory-action, ros-indigo-roseus-remote
+Description: Metapackage that contains robot packages for jsk-ros-pkg
