@@ -1,14 +1,14 @@
-From 630bb92bc562dc4d89d53a646aebdec6e7bba650 Mon Sep 17 00:00:00 2001
+From cb46a4f1888522dda0b9d2a5b94c4741675882d9 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Wed, 16 Dec 2015 12:54:46 +0900
 Subject: [PATCH 2/2] face_recognition is not released yet
 
 ---
- package.xml |    2 +-
+ package.xml | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.xml b/package.xml
-index 321a8c9..1ad948c 100644
+index 9946825..0a49f70 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -62,7 +62,7 @@
@@ -21,5 +21,5 @@ index 321a8c9..1ad948c 100644
    <run_depend>pr2_gazebo</run_depend>
    <run_depend>pr2_navigation</run_depend>
 -- 
-1.7.9.5
+1.9.1
 
