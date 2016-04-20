@@ -1,14 +1,14 @@
-From cb46a4f1888522dda0b9d2a5b94c4741675882d9 Mon Sep 17 00:00:00 2001
+From 430fc68d69de9b40477dc2b3d1899e8ea74c1bbb Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Wed, 16 Dec 2015 12:54:46 +0900
-Subject: [PATCH 2/2] face_recognition is not released yet
+Subject: [PATCH 2/3] face_recognition is not released yet
 
 ---
  package.xml | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.xml b/package.xml
-index 9946825..0a49f70 100644
+index a92ba90..a933efe 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -62,7 +62,7 @@
