@@ -1,4 +1,4 @@
-From a5f66f29d940263adc10cabb7c609d1da1e020a8 Mon Sep 17 00:00:00 2001
+From c9d30692c6fe008ba8361e7f68dd6f35ade02b5d Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 30 Jan 2015 15:11:02 +0900
 Subject: [PATCH] they are not released on indigo yet
@@ -8,7 +8,7 @@ Subject: [PATCH] they are not released on indigo yet
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index 7a0efd2..56326e3 100644
+index 4de3757..50e1033 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -7,10 +7,10 @@
