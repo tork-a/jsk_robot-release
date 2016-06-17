@@ -1,4 +1,4 @@
-From 642fbc0a90f49b86a8b087331ae01a3dcc63ebcf Mon Sep 17 00:00:00 2001
+From 62529093fd2c826e78f5e93553488fee37b4375f Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Wed, 20 Apr 2016 15:51:13 +0900
 Subject: [PATCH 3/3] remove unreleased packages
@@ -8,10 +8,10 @@ Subject: [PATCH 3/3] remove unreleased packages
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/package.xml b/package.xml
-index a933efe..cabd9d2 100644
+index fc4cbca..fab495c 100644
 --- a/package.xml
 +++ b/package.xml
-@@ -70,13 +70,13 @@
+@@ -71,13 +71,13 @@
    <run_depend>pr2_navigation_perception</run_depend>
    <run_depend>pr2_navigation_config</run_depend>
    <run_depend>jsk_maps</run_depend>

@@ -1,4 +1,4 @@
-From b1e997b7a0813d88d0d419f729cea4209c0f671f Mon Sep 17 00:00:00 2001
+From 163f0c361b3e4851ffba1bd70d1d295e29bc4762 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Wed, 16 Dec 2015 12:54:46 +0900
 Subject: [PATCH 2/3] face_recognition is not released yet
@@ -8,10 +8,10 @@ Subject: [PATCH 2/3] face_recognition is not released yet
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package.xml b/package.xml
-index a92ba90..a933efe 100644
+index a09f20a..fc4cbca 100644
 --- a/package.xml
 +++ b/package.xml
-@@ -62,7 +62,7 @@
+@@ -63,7 +63,7 @@
    <run_depend>pr2_teleop_general</run_depend>
    <run_depend>pr2_arm_kinematics</run_depend>
    <!-- <run_depend>safe_teleop_base</run_depend> -->
