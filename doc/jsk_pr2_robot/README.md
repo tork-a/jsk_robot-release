@@ -1,1 +1,0 @@
-../../jsk_pr2_robot/README.md
