@@ -1,0 +1,28 @@
+From fa904e2ceb306b7846c163d267f3f094279e3da2 Mon Sep 17 00:00:00 2001
+From: Kei Okada <kei.okada@gmail.com>
+Date: Fri, 17 Jun 2016 13:17:08 +0900
+Subject: [PATCH 2/2] changing only debian/indigo/saucy is not a good
+
+---
+ CMakeLists.txt | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bf73d13..5cba77f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,11 +7,6 @@ if($ENV{ROS_DISTRO} STREQUAL "hydro")
+   return()
+ endif()
+ 
+-message(STATUS "fetch is not supported on saucy")
+-find_package(catkin)
+-catkin_package()
+-return()
+-
+ find_package(catkin REQUIRED fetch_description)
+ 
+ catkin_package()
+-- 
+1.9.1
+

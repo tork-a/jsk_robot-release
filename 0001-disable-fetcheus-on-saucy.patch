@@ -1,7 +1,7 @@
-From b5db2f6daa964baea2349a3af3c40e416c149be8 Mon Sep 17 00:00:00 2001
+From 4f1e249fdd289ac7fb2e63e9d228ebc15c093936 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 17 Jun 2016 09:51:56 +0900
-Subject: [PATCH] disable fetcheus on saucy
+Subject: [PATCH 1/2] disable fetcheus on saucy
 
 ---
  CMakeLists.txt | 5 +++++
