@@ -2,6 +2,9 @@
 Changelog for package jsk_nao_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.6 (2016-06-17)
+------------------
+
 1.0.5 (2016-04-18)
 ------------------
 * add params for new naoqi_driver.launch
