@@ -1,16 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(fetcheus)
-
-FIND_PROGRAM(LSB_RELEASE_EXECUTABLE lsb_release)
-IF(LSB_RELEASE_EXECUTABLE)
-  EXECUTE_PROCESS(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -c
-    OUTPUT_VARIABLE TMP_LSB_CODENAME
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
-  STRING(TOLOWER ${TMP_LSB_CODENAME} LSB_CODENAME)
-ENDIF()
-
-if($ENV{ROS_DISTRO} STREQUAL "hydro" OR "${LSB_CODENAME}" STREQUAL "saucy" )
-  message(STATUS "fetch is not supported on hydro and ${LSB_CODENAME}")
+if($ENV{ROS_DISTRO} STREQUAL "hydro")
+  message(STATUS "fetch is not supported on hydro")
   find_package(catkin)
   catkin_package()
   return()
