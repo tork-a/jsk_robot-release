@@ -1,0 +1,28 @@
+From b5db2f6daa964baea2349a3af3c40e416c149be8 Mon Sep 17 00:00:00 2001
+From: Kei Okada <kei.okada@gmail.com>
+Date: Fri, 17 Jun 2016 09:51:56 +0900
+Subject: [PATCH] disable fetcheus on saucy
+
+---
+ CMakeLists.txt | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5cba77f..bf73d13 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,6 +7,11 @@ if($ENV{ROS_DISTRO} STREQUAL "hydro")
+   return()
+ endif()
+ 
++message(STATUS "fetch is not supported on saucy")
++find_package(catkin)
++catkin_package()
++return()
++
+ find_package(catkin REQUIRED fetch_description)
+ 
+ catkin_package()
+-- 
+1.9.1
+
