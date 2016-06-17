@@ -7,11 +7,6 @@ if($ENV{ROS_DISTRO} STREQUAL "hydro")
   return()
 endif()
 
-message(STATUS "fetch is not supported on saucy")
-find_package(catkin)
-catkin_package()
-return()
-
 find_package(catkin REQUIRED fetch_description)
 
 catkin_package()
