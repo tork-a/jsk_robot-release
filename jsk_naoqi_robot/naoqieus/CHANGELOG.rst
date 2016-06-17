@@ -2,6 +2,9 @@
 Changelog for naoqieus
 ^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.6 (2016-06-17)
+------------------
+
 1.0.5 (2016-04-18)
 ------------------
 * fixed program when the order of two optional params is upside down
