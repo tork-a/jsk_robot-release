@@ -9,11 +9,13 @@ import itertools
 import tf
 import time
 import copy
+from operator import itemgetter 
 
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Empty
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import PoseWithCovariance, TwistWithCovariance, Twist, Pose, Point, Quaternion, Vector3, TransformStamped
+from jsk_recognition_msgs.msg import HistogramWithRangeArray, HistogramWithRange, HistogramWithRangeBin
 from odometry_utils import norm_pdf_multivariate, transform_quaternion_to_euler, transform_local_twist_to_global, transform_local_twist_covariance_to_global, update_pose, update_pose_covariance, broadcast_transform
 
 class ParticleOdometry(object):
@@ -24,6 +26,7 @@ class ParticleOdometry(object):
         # instance valiables
         self.rate = float(rospy.get_param("~rate", 100))
         self.particle_num = float(rospy.get_param("~particle_num", 100))
+        self.valid_particle_num = min(float(rospy.get_param("~valid_particle_num", int(self.particle_num / 2.0))), self.particle_num) # select valid_particle_num particles in ascending weight sequence when estimating normal distributions
         self.odom_frame = rospy.get_param("~odom_frame", "feedback_odom")
         self.base_link_frame = rospy.get_param("~base_link_frame", "BODY")
         self.odom_init_frame = rospy.get_param("~odom_init_frame", "odom_init")
@@ -52,12 +55,16 @@ class ParticleOdometry(object):
                            rospy.get_param("~init_sigma_pitch", 0.0001),
                            rospy.get_param("~init_sigma_yaw", 0.05)]
         # tf
-        self.publish_tf = rospy.get_param("~publish_tf", True)        
+        self.publish_tf = rospy.get_param("~publish_tf", True)
         if self.publish_tf:
             self.broadcast = tf.TransformBroadcaster()
             self.invert_tf = rospy.get_param("~invert_tf", True)
         # publisher
         self.pub = rospy.Publisher("~output", Odometry, queue_size = 1)
+        # histogram
+        self.publish_histogram = rospy.get_param("~publish_histogram", False)
+        if self.publish_histogram:
+            self.pub_hist = rospy.Publisher("~particle_histograms", HistogramWithRangeArray, queue_size = 1)
         # subscriber
         self.source_odom_sub = rospy.Subscriber("~source_odom", Odometry, self.source_odom_callback, queue_size = 10)
         self.measure_odom_sub = rospy.Subscriber("~measure_odom", Odometry, self.measure_odom_callback, queue_size = 10)
@@ -193,8 +200,11 @@ class ParticleOdometry(object):
         # relfect source_odom information
         self.odom.header.stamp = self.source_odom.header.stamp
         self.odom.twist = self.source_odom.twist
+        # use only important particels
+        combined_prt_weight = zip(self.particles, self.weights)
+        selected_prt_weight = zip(*sorted(combined_prt_weight, key = itemgetter(1), reverse = True)[:int(self.valid_particle_num)]) # [(p0, w0), (p1, w1), ..., (pN, wN)] -> [(sorted_p0, sorted_w0), (sorted_p1, sorted_w1), ..., (sorted_pN', sorted_wN')] -> [(sorted_p0, ..., sorted_pN'), (sorted_w0, ..., sorted_wN')]
         # estimate gaussian distribution for Odometry msg 
-        mean, cov = self.guess_normal_distribution(self.particles, self.weights)
+        mean, cov = self.guess_normal_distribution(selected_prt_weight[0], selected_prt_weight[1])
         self.odom.pose.pose = self.convert_list_to_pose(mean)
         self.odom.pose.covariance = list(itertools.chain(*cov))
         self.pub.publish(self.odom)
@@ -232,6 +242,9 @@ class ParticleOdometry(object):
         else:
             self.calc_odometry()
             self.publish_odometry()
+            if self.publish_histogram:
+                histgram_msg = self.make_histogram_array(self.particles, self.source_odom.header.stamp)
+                self.pub_hist.publish(histgram_msg)
 
     def execute(self):
         while not rospy.is_shutdown():
@@ -285,3 +298,25 @@ class ParticleOdometry(object):
         ret_pose = update_pose(pose_with_covariance.pose, global_twist_with_covariance.twist, dt)
         ret_pose_cov = update_pose_covariance(pose_with_covariance.covariance, global_twist_with_covariance.covariance, dt)
         return PoseWithCovariance(ret_pose, ret_pose_cov)
+    def make_histogram_array(self, particles, stamp):
+        # initialize
+        histogram_array_msg = HistogramWithRangeArray()
+        histogram_array_msg.header.frame_id = self.odom_frame
+        histogram_array_msg.header.stamp = stamp
+        for i in range(6):
+            range_msg = HistogramWithRange()
+            range_msg.header.frame_id = self.odom_frame
+            range_msg.header.stamp = stamp
+            histogram_array_msg.histograms.append(range_msg)
+        # count
+        particle_array = numpy.array([self.convert_pose_to_list(prt) for prt in particles])
+        data = zip(*particle_array) # [(x_data), (y_data), ..., (yaw_data)]
+        for i, d in enumerate(data):
+            hist, bins = numpy.histogram(d, bins=50)
+            for count, min_value, max_value in zip(hist, bins[:-1], bins[1:]):
+                msg_bin = HistogramWithRangeBin()
+                msg_bin.max_value = max_value
+                msg_bin.min_value = min_value
+                msg_bin.count = count
+                histogram_array_msg.histograms[i].bins.append(msg_bin)
+        return histogram_array_msg

@@ -5,9 +5,16 @@ viso_odom_calculator:
   max_feedback_time: 0
 
 biped_particle_odometry:
-  particle_num: 60
+  particle_num: 30
+  valid_particle_num: 20
   rate: 40
   use_imu: true
+  init_sigma_x: 0.05
+  init_sigma_y: 0.05
+  init_sigma_z: 0.001
+  init_sigma_roll: 0.001
+  sigma_pitch: 0.001
+  sigma_yaw: 0.05
 
 biped_particle_odometry_iir_filter:
   cutoff: 5
@@ -20,7 +27,7 @@ viso_odometry_offset:
   twist_proportional_sigma: false
   sigma_x: 0.05
   sigma_y: 0.1
-  sigma_z: 0.3
+  sigma_z: 0.03
   sigma_roll: 0.3
   sigma_pitch: 0.3
   sigma_yaw: 0.06
@@ -36,7 +43,7 @@ biped_odometry_offset:
   overwrite_pdf: true
   sigma_x: 0.075
   sigma_y: 0.15
-  sigma_z: 0.001
+  sigma_z: 0.015
   sigma_roll: 0.001
   sigma_pitch: 0.001
   sigma_yaw: 0.15
