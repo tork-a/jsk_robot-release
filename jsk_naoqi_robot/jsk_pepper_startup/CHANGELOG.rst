@@ -2,6 +2,11 @@
 Changelog for package jsk_pepper_startup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.6 (2016-06-17)
+------------------
+* change from naoqi_msgs to naoqi_bridge_msgs (`#614 <https://github.com/jsk-ros-pkg/jsk_robot/issues/614>`_)
+* Contributors: Kanae Kochigami
+
 1.0.5 (2016-04-18)
 ------------------
 
