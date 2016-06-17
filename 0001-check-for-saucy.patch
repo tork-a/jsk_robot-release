@@ -1,0 +1,35 @@
+From 7e86bccbb504b19b13659c8a3687735c932e5d80 Mon Sep 17 00:00:00 2001
+From: Kei Okada <kei.okada@gmail.com>
+Date: Fri, 17 Jun 2016 13:27:50 +0900
+Subject: [PATCH] check for saucy
+
+---
+ CMakeLists.txt | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5cba77f..8fc8f87 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,7 +1,16 @@
+ cmake_minimum_required(VERSION 2.8.3)
+ project(fetcheus)
+-if($ENV{ROS_DISTRO} STREQUAL "hydro")
+-  message(STATUS "fetch is not supported on hydro")
++
++FIND_PROGRAM(LSB_RELEASE_EXECUTABLE lsb_release)
++IF(LSB_RELEASE_EXECUTABLE)
++  EXECUTE_PROCESS(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -c
++    OUTPUT_VARIABLE TMP_LSB_CODENAME
++    OUTPUT_STRIP_TRAILING_WHITESPACE)
++  STRING(TOLOWER ${TMP_LSB_CODENAME} LSB_CODENAME)
++ENDIF()
++
++if($ENV{ROS_DISTRO} STREQUAL "hydro" OR "${LSB_CODENAME}" STREQUAL "saucy" )
++  message(STATUS "fetch is not supported on hydro and ${LSB_CODENAME}")
+   find_package(catkin)
+   catkin_package()
+   return()
+-- 
+1.9.1
+
