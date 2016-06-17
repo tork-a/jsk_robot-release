@@ -1,22 +1,20 @@
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Changelog for package jsk_fetch_startup
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changelog for package jsk_robot
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1.0.6 (2016-06-17)
 ------------------
 
 1.0.5 (2016-04-18)
 ------------------
+* Add metapackage
+* Contributors: Kentaro Wada
 
 1.0.4 (2016-03-21)
 ------------------
-* fetch_bringup.launch: fix arg boot_sound
-* Contributors: Kei Okada
 
 1.0.3 (2016-03-05)
 ------------------
-* add jsk_fetch_robot package
-* Contributors: Kei Okada
 
 1.0.2 (2016-02-14)
 ------------------
