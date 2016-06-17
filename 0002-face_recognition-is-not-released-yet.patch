@@ -1,4 +1,4 @@
-From 430fc68d69de9b40477dc2b3d1899e8ea74c1bbb Mon Sep 17 00:00:00 2001
+From b1e997b7a0813d88d0d419f729cea4209c0f671f Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Wed, 16 Dec 2015 12:54:46 +0900
 Subject: [PATCH 2/3] face_recognition is not released yet
