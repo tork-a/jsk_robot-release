@@ -1,4 +1,4 @@
-From 564c9c82d95dd22ba23114e3ee7d792ecf2c5969 Mon Sep 17 00:00:00 2001
+From 72b656e502360618300370103e842942c5811bd4 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 30 Jan 2015 15:15:22 +0900
 Subject: [PATCH] they are not released on indigo yet
@@ -49,5 +49,5 @@ index 0b6bc02..92a42c5 100644
 \ No newline at end of file
 +</package>
 -- 
-1.9.1
+1.9.0
 
