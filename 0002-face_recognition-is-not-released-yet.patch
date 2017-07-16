@@ -1,4 +1,4 @@
-From a6f10fcd34e078e5472fb24fac53e05c7087e28b Mon Sep 17 00:00:00 2001
+From e0f06a6b20b02999a0a0516358e4506b5ef42eb8 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Wed, 16 Dec 2015 12:54:46 +0900
 Subject: [PATCH 2/3] face_recognition is not released yet
@@ -21,5 +21,5 @@ index a09f20a..fc4cbca 100644
    <run_depend>pr2_gazebo</run_depend>
    <run_depend>pr2_navigation</run_depend>
 -- 
-1.9.1
+1.9.0
 

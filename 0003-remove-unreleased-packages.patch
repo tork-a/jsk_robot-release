@@ -1,4 +1,4 @@
-From 20c3b0b45566b00e499a636ef47ed996f1f17dd5 Mon Sep 17 00:00:00 2001
+From 4a1d90e33d5aa89936ec7fafb262abb21cc1896e Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Wed, 20 Apr 2016 15:51:13 +0900
 Subject: [PATCH 3/3] remove unreleased packages
@@ -30,5 +30,5 @@ index fc4cbca..fab495c 100644
  
    <export>
 -- 
-1.9.1
+1.9.0
 
