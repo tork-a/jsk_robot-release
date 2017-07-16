@@ -17,6 +17,7 @@ from sensor_msgs.msg import Imu
 from geometry_msgs.msg import PoseWithCovariance, TwistWithCovariance, Twist, Pose, Point, Quaternion, Vector3, TransformStamped
 from jsk_recognition_msgs.msg import HistogramWithRangeArray, HistogramWithRange, HistogramWithRangeBin
 from odometry_utils import norm_pdf_multivariate, transform_quaternion_to_euler, transform_local_twist_to_global, transform_local_twist_covariance_to_global, update_pose, update_pose_covariance, broadcast_transform
+from diagnostic_msgs.msg import *
 
 class ParticleOdometry(object):
     ## initialize
@@ -61,6 +62,7 @@ class ParticleOdometry(object):
             self.invert_tf = rospy.get_param("~invert_tf", True)
         # publisher
         self.pub = rospy.Publisher("~output", Odometry, queue_size = 1)
+        self.diag_pub = rospy.Publisher('~diagnostics', DiagnosticArray)
         # histogram
         self.publish_histogram = rospy.get_param("~publish_histogram", False)
         if self.publish_histogram:
@@ -116,8 +118,8 @@ class ParticleOdometry(object):
             except numpy.linalg.LinAlgError:
                 rospy.logwarn("[%s] covariance matrix is not singular.", rospy.get_name())
                 weights = [min_weight] * len(particles)
-            if all([x == min_weight for x in weights]):
-                rospy.logwarn("[%s] likelihood is too small and all weights are limited by min_weight.", rospy.get_name())
+            # if all([x == min_weight for x in weights]):
+            #     rospy.logwarn("[%s] likelihood is too small and all weights are limited by min_weight.", rospy.get_name())
             normalization_coeffs = sum(weights) # normalization and each weight is assumed to be larger than 0
             weights = [w / normalization_coeffs for w in weights]
         return weights
@@ -164,7 +166,8 @@ class ParticleOdometry(object):
 
     def z_error_pdf(self, particle_z):
         z_error = particle_z - self.source_odom.pose.pose.position.z
-        return scipy.stats.norm.pdf(z_error, loc = 0.0, scale = self.z_error_sigma) # scale is standard divasion
+        # return scipy.stats.norm.pdf(z_error, loc = 0.0, scale = self.z_error_sigma) # scale is standard divasion
+        return scipy.stats.norm.pdf(z_error / self.z_error_sigma, loc = 0.0, scale = 1.0) # standard pdf
 
     def imu_error_pdf(self, prt):
         if not self.imu:
@@ -173,9 +176,12 @@ class ParticleOdometry(object):
         prt_euler = self.convert_pose_to_list(prt)[3:6]
         imu_matrix = tf.transformations.quaternion_matrix([self.imu.orientation.x, self.imu.orientation.y, self.imu.orientation.z, self.imu.orientation.w])[:3, :3]
         imu_euler = tf.transformations.euler_from_matrix(numpy.dot(self.imu_rotation, imu_matrix)) # imu is assumed to be in base_link relative and imu_rotation is base_link->particle_odom transformation
-        roll_pitch_pdf = scipy.stats.norm.pdf(prt_euler[0] - imu_euler[0], loc = 0.0, scale = self.roll_error_sigma) * scipy.stats.norm.pdf(prt_euler[1] - imu_euler[1], loc = 0.0, scale = self.pitch_error_sigma)
+        # roll_pitch_pdf = scipy.stats.norm.pdf(prt_euler[0] - imu_euler[0], loc = 0.0, scale = self.roll_error_sigma) * scipy.stats.norm.pdf(prt_euler[1] - imu_euler[1], loc = 0.0, scale = self.pitch_error_sigma)
+        roll_std_pdf = scipy.stats.norm.pdf((prt_euler[0] - imu_euler[0]) / self.roll_error_sigma, loc = 0.0, scale = 1.0) # std pdf: Z = (X - mu) / sigma
+        pitch_std_pdf = scipy.stats.norm.pdf((prt_euler[1] - imu_euler[1]) / self.pitch_error_sigma, loc = 0.0, scale = 1.0)
+        roll_pitch_pdf = roll_std_pdf * pitch_std_pdf
         if self.use_imu_yaw:
-            return roll_pitch_pdf * scipy.stats.norm.pdf(prt_euler[2] - imu_euler[2], loc = 0.0, scale = self.yaw_error_sigma)
+            return roll_pitch_pdf * scipy.stats.norm.pdf((prt_euler[2] - imu_euler[2]) / self.yaw_error_sigma, loc = 0.0, scale = 1.0)
         else:
             return roll_pitch_pdf
 
@@ -212,6 +218,8 @@ class ParticleOdometry(object):
             broadcast_transform(self.broadcast, self.odom, self.invert_tf)
         # update prev_rpy to prevent jump of angles
         self.prev_rpy = transform_quaternion_to_euler([self.odom.pose.pose.orientation.x, self.odom.pose.pose.orientation.y, self.odom.pose.pose.orientation.z, self.odom.pose.pose.orientation.w], self.prev_rpy)
+        # diagnostics
+        self.update_diagnostics(self.particles, self.weights, self.odom.header.stamp)
 
     ## callback functions
     def source_odom_callback(self, msg):        
@@ -320,3 +328,16 @@ class ParticleOdometry(object):
                 msg_bin.count = count
                 histogram_array_msg.histograms[i].bins.append(msg_bin)
         return histogram_array_msg
+    def update_diagnostics(self, particles, weights, stamp):
+        diagnostic = DiagnosticArray()
+        diagnostic.header.stamp = stamp
+        # TODO: check particles
+
+        # check weights
+        status = DiagnosticStatus(name = "{0}: Weights".format(rospy.get_name()), level = DiagnosticStatus.OK, message = "Clear")
+        if all([x == self.min_weight for x in weights]):
+            status.level = DiagnosticStatus.WARN
+            status.message = "likelihood is too small and all weights are limited by min_weight"
+        diagnostic.status.append(status)
+
+        self.diag_pub.publish(diagnostic)
