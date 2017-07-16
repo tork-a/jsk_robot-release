@@ -2,13 +2,15 @@
   <arg name="use_slam_feedback" default="false"/>
   <arg name="use_odometry_iir_filter" default="false"/>
   <arg name="parameter_yaml" default="$(find jsk_robot_startup)/config/default_odometry_params.yaml"/>
+  <arg name="map_topic" default="/map"/>
+  <arg name="imu_topic" default="/imu"/>
 
   <!-- robot dependent parameters -->
   <rosparam command="load" file="$(arg parameter_yaml)"/>
 
   <node pkg="jsk_robot_startup" type="ImuRootlinkCalculator.py" name="imu_rootlink_calculator"
         output="screen" >
-    <remap from="~input" to="/imu" />
+    <remap from="~input" to="$(arg imu_topic)" />
     <remap from="~output" to="/imu_rootlink" />
     <rosparam>
       base_link_frame: BODY
@@ -79,9 +81,11 @@
     <remap from="~output" to="/biped_odom_particle" unless="$(arg use_odometry_iir_filter)"/>
     <remap from="~initial_base_link_transform" to="/init_to_base_link_transform" />
     <remap from="~imu" to="/imu_rootlink" />
+    <remap from="~diagnostics" to="/diagnostics" />
+    <param name="~odom_frame" value="/biped_odom_particle_raw" if="$(arg use_odometry_iir_filter)" />
+    <param name="~odom_frame" value="/biped_odom_particle" unless="$(arg use_odometry_iir_filter)" />
     <rosparam subst_value="true">
       odom_init_frame: odom_init
-      odom_frame: biped_odom_particle_raw
       base_link_frame: BODY
       publish_tf: false
       publish_histogram: false
@@ -113,11 +117,12 @@
   <node pkg="jsk_robot_startup" type="SlamMapTfToOdometry.py" name="slam_map_to_odometry"
         output="screen">
     <remap from="~output" to="/slam_odom" />
-    <remap from="~map" to="/map" />
+    <remap from="~map" to="$(arg map_topic)" />
     <remap from="~base_odom" to="/biped_odom_particle" />
     <rosparam>
       rate: 10
       map_frame: map
+      pub_only_map_updated: false
     </rosparam>
   </node>
   
