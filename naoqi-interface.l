@@ -6,13 +6,14 @@
 
 (defclass naoqi-interface
   :super robot-interface
-  :slots (naoqi-namespace joint-stiffness-trajectory-action)
+  :slots (naoqi-namespace dcm-namespace joint-stiffness-trajectory-action)
   )
 
 (defmethod naoqi-interface
   (:init
-   (&rest args &key ((:naoqi-namespace ns) "naoqi_robot") (robot) (type :naoqi-controller) &allow-other-keys)
+   (&rest args &key ((:naoqi-namespace ns) "naoqi_robot") ((:dcm-namespace dns) "naoqi_dcm") (robot) (type :naoqi-controller) &allow-other-keys)
    (setq naoqi-namespace ns)
+   (setq dcm-namespace dns)
    (print args)
    (send-super* :init :robot robot :type type :groupname "naoqi_interface" args)
    (ros::advertise "/move_base_simple/goal" geometry_msgs::PoseStamped 1)
@@ -20,18 +21,94 @@
    (ros::advertise "/speech" std_msgs::String 1)
    (ros::advertise (format nil "~A/pose/joint_angles" naoqi-namespace) naoqi_bridge_msgs::JointAnglesWithSpeed 1)
    (ros::advertise "/animated_speech" std_msgs::String 1)
+   (ros::advertise (format nil "~A/RightHand_controller/command" dcm-namespace) trajectory_msgs::JointTrajectory 1)
+   (ros::advertise (format nil "~A/LeftHand_controller/command" dcm-namespace)  trajectory_msgs::JointTrajectory 1)
    (setq joint-stiffness-trajectory-action
 	 (instance ros::simple-action-client :init
 		   (format nil "~A/pose/joint_stiffness_trajectory" naoqi-namespace)
 		   naoqi_bridge_msgs::JointTrajectoryAction))
    self)
   ;;
+  (:dcm-head-controller
+   ()
+   (list
+    (list
+     (cons :controller-action 
+	   (format nil "~A/Head_controller/follow_joint_trajectory" dcm-namespace))
+     (cons :controller-state 
+	   (format nil "~A/Head_controller/state" dcm-namespace))
+     (cons :action-type control_msgs::FollowJointTrajectoryAction)
+     (cons :joint-names (list "HeadYaw" "HeadPitch")))))
+  (:dcm-larm-controller
+   ()
+   (list
+    (list
+     (cons :controller-action 
+	   (format nil "~A/LeftArm_controller/follow_joint_trajectory" dcm-namespace))
+     (cons :controller-state 
+	   (format nil "~A/LeftArm_controller/state" dcm-namespace))
+     (cons :action-type control_msgs::FollowJointTrajectoryAction)
+     (cons :joint-names (list "LShoulderPitch" "LShoulderRoll" "LElbowYaw" "LElbowRoll" "LWristYaw")))))
+  (:dcm-rarm-controller
+   ()
+   (list
+    (list
+     (cons :controller-action 
+	   (format nil "~A/RightArm_controller/follow_joint_trajectory" dcm-namespace))
+     (cons :controller-state 
+	   (format nil "~A/RightArm_controller/state" dcm-namespace))
+     (cons :action-type control_msgs::FollowJointTrajectoryAction)
+     (cons :joint-names (list "RShoulderPitch" "RShoulderRoll" "RElbowYaw" "RElbowRoll" "RWristYaw")))))
+  (:dcm-pelvis-controller
+   ;; Nao: RHipYawPitch is mimic joint, Pepper: this method is overridden
+   ()
+   (list
+    (list
+     (cons :controller-action 
+	   (format nil "~A/Pelvis_controller/follow_joint_trajectory" dcm-namespace))
+     (cons :controller-state 
+	   (format nil "~A/Pelvis_controller/state" dcm-namespace))
+     (cons :action-type control_msgs::FollowJointTrajectoryAction)
+     (cons :joint-names (list "LHipYawPitch")))))
+  (:dcm-lfoot-controller
+   ()
+   (list
+    (list
+     (cons :controller-action "/nao_dcm/LeftFoot_controller/follow_joint_trajectory")
+     (cons :controller-state "/nao_dcm/LeftFoot_controller/state")
+     (cons :action-type control_msgs::FollowJointTrajectoryAction)
+     (cons :joint-names (list "LAnklePitch" "LAnkleRoll")))))
+  (:dcm-lleg-controller
+   ()
+   (list
+    (list
+     (cons :controller-action "/nao_dcm/LeftLeg_controller/follow_joint_trajectory")
+     (cons :controller-state "/nao_dcm/LeftLeg_controller/state")
+     (cons :action-type control_msgs::FollowJointTrajectoryAction)
+     (cons :joint-names (list "LHipRoll" "LHipPitch" "LKneePitch"))))) 
+  (:dcm-rfoot-controller
+   ()
+   (list
+    (list
+     (cons :controller-action "/nao_dcm/RightFoot_controller/follow_joint_trajectory")
+     (cons :controller-state "/nao_dcm/RightFoot_controller/state")
+     (cons :action-type control_msgs::FollowJointTrajectoryAction)
+     (cons :joint-names (list "RAnklePitch" "RAnkleRoll")))))
+  (:dcm-rleg-controller
+   ()
+   (list
+    (list
+     (cons :controller-action "/nao_dcm/RightLeg_controller/follow_joint_trajectory")
+     (cons :controller-state "/nao_dcm/RightLeg_controller/state")
+     (cons :action-type control_msgs::FollowJointTrajectoryAction)
+     (cons :joint-names (list "RHipRoll" "RHipPitch" "RKneePitch"))))) 
+  ;;
   (:naoqi-controller
    ()
    (list
     (list
      (cons :controller-action (format nil "~A/pose/joint_trajectory" naoqi-namespace))
-    ;;(cons :controller-state "joint_trajectory")
+     ;;(cons :controller-state "joint_trajectory")
      (cons :controller-state "dummy_state") ;; this is dummy
      (cons :action-type naoqi_bridge_msgs::JointTrajectoryAction)
      (cons :joint-names (mapcar #'(lambda (n) (if (symbolp n) (symbol-name n) n)) (send-all (send robot :joint-list) :name))))
@@ -80,23 +157,51 @@
   ;;
   (:move-hand
    (value &optional (arm :arms))
-   (let ((start_grasp_msg (instance naoqi_bridge_msgs::JointAnglesWithSpeed :init)))
-     (send start_grasp_msg :header :stamp (ros::time-now))
-     (send start_grasp_msg :header :seq 1)
-     (send start_grasp_msg :speed 0.5)
-     (send start_grasp_msg :relative 0)
-     (case arm  
-       (:arms
-	(send start_grasp_msg :joint_names (list "RHand" "LHand"))
-	(send start_grasp_msg :joint_angles (list value value)))
-       (:rarm 
-	(send start_grasp_msg :joint_names (list "RHand"))
-	(send start_grasp_msg :joint_angles (list value)))
-       (:larm 
-	(send start_grasp_msg :joint_names (list "LHand"))
-	(send start_grasp_msg :joint_angles (list value))))
-     (ros::publish (format nil "~A/pose/joint_angles" naoqi-namespace) start_grasp_msg)
-     ))
+   (if (ros::get-param "use_sim_time" nil)
+       (progn
+	 (let ((goal (instance trajectory_msgs::JointTrajectory :init)))
+	   (setq value (- 1.0 value))
+	   (if (or (eq arm :rarm) (eq arm :arms))
+	       (progn
+		 (send goal :header :seq 1)
+		 (send goal :header :stamp (ros::time-now))
+		 (send goal :joint_names (list "RHand"))
+		 (send goal :points
+		       (list (instance trajectory_msgs::JointTrajectoryPoint
+				       :init
+				       :positions (list value)
+				       :time_from_start (ros::time 1))))
+		 (ros::publish (format nil "~A/RightHand_controller/command" dcm-namespace) goal)))
+	   (if (or (eq arm :larm) (eq arm :arms))
+	       (progn
+		 (send goal :header :seq 1)
+		 (send goal :header :stamp (ros::time-now))
+		 (send goal :joint_names (list "LHand"))
+		 (send goal :points
+		       (list (instance trajectory_msgs::JointTrajectoryPoint
+				       :init
+				       :positions (list value)
+				       :time_from_start (ros::time 1))))
+		 (ros::publish (format nil "~A/LeftHand_controller/command" dcm-namespace) goal)))
+	   ))
+     (progn
+       (let ((start_grasp_msg (instance naoqi_bridge_msgs::JointAnglesWithSpeed :init)))
+	 (send start_grasp_msg :header :stamp (ros::time-now))
+	 (send start_grasp_msg :header :seq 1)
+	 (send start_grasp_msg :speed 0.5)
+	 (send start_grasp_msg :relative 0)
+	 (case arm  
+	       (:arms
+		(send start_grasp_msg :joint_names (list "RHand" "LHand"))
+		(send start_grasp_msg :joint_angles (list value value)))
+	       (:rarm 
+		(send start_grasp_msg :joint_names (list "RHand"))
+		(send start_grasp_msg :joint_angles (list value)))
+	       (:larm 
+		(send start_grasp_msg :joint_names (list "LHand"))
+		(send start_grasp_msg :joint_angles (list value))))
+	 (ros::publish (format nil "~A/pose/joint_angles" naoqi-namespace) start_grasp_msg))))
+     )
   (:start-grasp
    (&optional (angle-ratio 0.0) (arm :arms))
    (if (memq angle-ratio '(:larm :rarm :arms))
@@ -213,5 +318,58 @@
 	     (setq res (ros::service-call (format nil "~A/pose/life/getState" naoqi-namespace) req))
 	     (send res :status :data)
 	     )
+  (:set-external-collision-protection-status 
+   (type status)
+   (let (req res)
+     (ros::wait-for-service "/set_external_collision_protection_status")
+     (setq req (instance naoqi_bridge_msgs::SetExternalCollisionProtectionEnabledRequest :init))
+     (send req :name (instance naoqi_bridge_msgs::ExternalCollisionProtectionNames :init :data type))
+     (send req :status status)
+     (setq res (ros::service-call "/set_external_collision_protection_status" req))
+     (send res :success)))
+  (:get-external-collision-protection-status 
+   (type)
+   (let (req res)
+     (ros::wait-for-service "/get_external_collision_protection_status")
+     (setq req (instance naoqi_bridge_msgs::GetExternalCollisionProtectionEnabledRequest :init))
+     (send req :name (instance naoqi_bridge_msgs::ExternalCollisionProtectionNames :init :data type))
+     (setq res (ros::service-call "/get_external_collision_protection_status" req))
+     (send res :status)
+     ))
+  (:set-move-arms-enabled 
+   (status &optional (arm :arms))
+   (let ((ret (instance naoqi_bridge_msgs::SetArmsEnabledRequest :init))
+	 (another-arm-status))
+     (ros::wait-for-service "/set_move_arms_enabled")
+     (case arm
+	   (:arms 
+	    (send ret :left_arm status)
+	    (send ret :right_arm status))
+	   (:rarm
+	    (setq another-arm-status (send *ri* :get-move-arms-enabled 0))
+	    (send ret :right_arm status)
+	    (send ret :left_arm another-arm-status))
+	   (:larm 
+	    (setq another-arm-status (send *ri* :get-move-arms-enabled 1))
+	    (send ret :right_arm another-arm-status)
+	    (send ret :left_arm status)))
+     (ros::service-call "/set_move_arms_enabled" ret))
+   )
+  (:get-move-arms-enabled
+   (&optional (arm :arms))
+   (let ((ret (instance naoqi_bridge_msgs::GetArmsEnabledRequest :init))
+	 (arm_msg (instance naoqi_bridge_msgs::Arms :init)) res)
+     (ros::wait-for-service "/get_move_arms_enabled")
+     (case arm
+	   (:larm 
+	    (send arm_msg :data 0))
+	   (:rarm 
+	    (send arm_msg :data 1))
+	   (:arms 
+	    (send arm_msg :data 2)))
+     (send ret :arm arm_msg)
+     (setq res (ros::service-call "/get_move_arms_enabled" ret))
+     (send res :status))
+   )
   )
 ;;
