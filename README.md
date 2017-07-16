@@ -1,12 +1,74 @@
-# jsk_robot
+jsk_robot_startup
+===
 
-[![Build Status](https://travis-ci.org/jsk-ros-pkg/jsk_robot.svg)](https://travis-ci.org/jsk-ros-pkg/jsk_robot)
+## lifelog
+
+see [lifelog/README.md](lifelog/README.md)
+
+## scripts/ConstantHeightFramePublisher.py
+![pointcloud_to_scan_base_tf_squat.png](images/pointcloud_to_scan_base_tf_squat.png)
+![pointcloud_to_scan_base_tf_stand.png](images/pointcloud_to_scan_base_tf_stand.png)
+
+This script provides a constant height frame from the ground to get a imagenary laser scan for pointcloud_to_laserscan package.
+Biped robots need to use this constant frame to get constant laser scan for 2D SLAM package for wheeled ones like gmapping,
+because the pose of biped robots including height of the base link changes during a task in contrast to wheeled ones.
+In this frame, x, y and yaw is same as base frame of the robot body, z is constant and roll and pitch is same as the ground.
+
+### Parameters
+
+* `~parent_frame` (String, default: "BODY")
+
+  This parameter indicates the parent frame of the constant height frame, which is expected to be a base frame of the robot body.
+
+* `~odom_frame` (String, default: "odom")
+
+  This parameter indicates the odometry frame on the ground.
+
+* `~frame_name` (String, default: "pointcloud_to_scan_base")
+
+  This parameter indicates the name of the constant frame.
+
+* `~rate` (Double, default: 10.0)
+
+  This parameter indicates publish rate [Hz] of the constant frame.
+
+* `~height` (Double, default: 1.0)
+
+  This parameter indicates initial height [m] of the constant frame.
+
+### Subscribing Topics
+
+* `~height` (`std_msgs/Float64`)
+
+  This topic modifies height [m] of the constant frame.
+
+## util/initialpose_publisher.l
+
+This script sets initial pose with relative pose from specified TF frame by publishing `/initialpose`.
+
+### Parameters
+
+* `~transform_base` (String, default: "map")
+
+  TF frame of publishing topic `/initialpose`.
+  
+* `~transform_frame` (String, default: "eng2/7f/73B2")
+
+  Base TF frame to calcurate relative initial pose
+  
+* `~initial_pose_x` (Double, default: 0.0)
+
+  Relative pose x
+
+* `~initial_pose_y` (Double, default: 0.0)
+
+  Relative pose y
+
+* `~initial_pose_yaw` (Double, default: 0.0)
+
+  Relative pose yaw
 
 
-## Deb Build Status
+### Subscribing Topics
 
-| Package           | Indigo (Saucy)                                                                                                                                                                             | Indigo (Trusty)                                                                                                                                                                              | Jade (Trusty)                                                                                                                                                                                | Jade (Vivid)                                                                                                                                                                               | Kinetic (Wily)                                                                                                                                                                           | Kinetic (Xenial)                                                                                                                                                                             |
-|:------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| jsk_robot (armhf) | [![Build Status](http://build.ros.org/job/Ibin_arm_uShf__jsk_robot__ubuntu_saucy_armhf__binary/badge/icon)](http://build.ros.org/job/Ibin_arm_uShf__jsk_robot__ubuntu_saucy_armhf__binary) | [![Build Status](http://build.ros.org/job/Ibin_arm_uThf__jsk_robot__ubuntu_trusty_armhf__binary/badge/icon)](http://build.ros.org/job/Ibin_arm_uThf__jsk_robot__ubuntu_trusty_armhf__binary) | [![Build Status](http://build.ros.org/job/Jbin_arm_uThf__jsk_robot__ubuntu_trusty_armhf__binary/badge/icon)](http://build.ros.org/job/Jbin_arm_uThf__jsk_robot__ubuntu_trusty_armhf__binary) | [![Build Status](http://build.ros.org/job/Jbin_arm_uVhf__jsk_robot__ubuntu_vivid_armhf__binary/badge/icon)](http://build.ros.org/job/Jbin_arm_uVhf__jsk_robot__ubuntu_vivid_armhf__binary) | [![Build Status](http://build.ros.org/job/Kbin_arm_uWhf__jsk_robot__ubuntu_wily_armhf__binary/badge/icon)](http://build.ros.org/job/Kbin_arm_uWhf__jsk_robot__ubuntu_wily_armhf__binary) | [![Build Status](http://build.ros.org/job/Kbin_arm_uXhf__jsk_robot__ubuntu_xenial_armhf__binary/badge/icon)](http://build.ros.org/job/Kbin_arm_uXhf__jsk_robot__ubuntu_xenial_armhf__binary) |
-| jsk_robot (i386)  | [![Build Status](http://build.ros.org/job/Ibin_uS32__jsk_robot__ubuntu_saucy_i386__binary/badge/icon)](http://build.ros.org/job/Ibin_uS32__jsk_robot__ubuntu_saucy_i386__binary)           | [![Build Status](http://build.ros.org/job/Ibin_uT32__jsk_robot__ubuntu_trusty_i386__binary/badge/icon)](http://build.ros.org/job/Ibin_uT32__jsk_robot__ubuntu_trusty_i386__binary)           | [![Build Status](http://build.ros.org/job/Jbin_uT32__jsk_robot__ubuntu_trusty_i386__binary/badge/icon)](http://build.ros.org/job/Jbin_uT32__jsk_robot__ubuntu_trusty_i386__binary)           | [![Build Status](http://build.ros.org/job/Jbin_uV32__jsk_robot__ubuntu_vivid_i386__binary/badge/icon)](http://build.ros.org/job/Jbin_uV32__jsk_robot__ubuntu_vivid_i386__binary)           | [![Build Status](http://build.ros.org/job/Kbin_uW32__jsk_robot__ubuntu_wily_i386__binary/badge/icon)](http://build.ros.org/job/Kbin_uW32__jsk_robot__ubuntu_wily_i386__binary)           | [![Build Status](http://build.ros.org/job/Kbin_uX32__jsk_robot__ubuntu_xenial_i386__binary/badge/icon)](http://build.ros.org/job/Kbin_uX32__jsk_robot__ubuntu_xenial_i386__binary)           |
-| jsk_robot (amd64) | [![Build Status](http://build.ros.org/job/Ibin_uS64__jsk_robot__ubuntu_saucy_amd64__binary/badge/icon)](http://build.ros.org/job/Ibin_uS64__jsk_robot__ubuntu_saucy_amd64__binary)         | [![Build Status](http://build.ros.org/job/Ibin_uT64__jsk_robot__ubuntu_trusty_amd64__binary/badge/icon)](http://build.ros.org/job/Ibin_uT64__jsk_robot__ubuntu_trusty_amd64__binary)         | [![Build Status](http://build.ros.org/job/Jbin_uT64__jsk_robot__ubuntu_trusty_amd64__binary/badge/icon)](http://build.ros.org/job/Jbin_uT64__jsk_robot__ubuntu_trusty_amd64__binary)         | [![Build Status](http://build.ros.org/job/Jbin_uV64__jsk_robot__ubuntu_vivid_amd64__binary/badge/icon)](http://build.ros.org/job/Jbin_uV64__jsk_robot__ubuntu_vivid_amd64__binary)         | [![Build Status](http://build.ros.org/job/Kbin_uW64__jsk_robot__ubuntu_wily_amd64__binary/badge/icon)](http://build.ros.org/job/Kbin_uW64__jsk_robot__ubuntu_wily_amd64__binary)         | [![Build Status](http://build.ros.org/job/Kbin_uX64__jsk_robot__ubuntu_xenial_amd64__binary/badge/icon)](http://build.ros.org/job/Kbin_uX64__jsk_robot__ubuntu_xenial_amd64__binary)         |
+* `/amcl_pose` (`geometry_msgs/PoseWithcovariancestamped`)
