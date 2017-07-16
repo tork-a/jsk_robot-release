@@ -1,0 +1,145 @@
+ros-indigo-jsk-pr2-desktop (1.1.0-0trusty) trusty; urgency=high
+
+  * [jsk_pr2_desktop] change install destination to ~/.local/share/applications (#788 <https://github.com/jsk-ros-pkg/jsk_robot/issues/788> )
+  * catkinize jsk_pr2_desktop (#781 <https://github.com/jsk-ros-pkg/jsk_robot/issues/781>)
+  * Contributors: Yuki Furuta, Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 15 Jul 2017 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.9-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 08 Nov 2016 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.8-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Mon, 07 Nov 2016 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.7-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 01 Nov 2016 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.6-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 16 Jun 2016 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.5-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 17 Apr 2016 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.4-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 20 Mar 2016 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.3-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 04 Mar 2016 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.2-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 13 Feb 2016 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.1-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 18 Nov 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (1.0.0-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 06:17:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.13-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 06:04:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.12-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 05:47:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.11-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Mon, 31 Aug 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.10-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 15 Aug 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.9-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 02 Aug 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.8-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.6-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.5-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.4-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.3-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.2-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-pr2-desktop (0.0.1-0trusty) trusty; urgency=high
+
+  * Merge branch 'master' of https://github.com/jsk-ros-pkg/jsk_robot
+  * Merge pull request #149 <https://github.com/jsk-ros-pkg/jsk_robot/issues/149> from aginika/move-pr2-packages-under-jsk-pr2-robot
+    move pr2 related package under jsk_pr2_robot
+  * move pr2 related package under jsk_pr2_robot
+  * Contributors: Ryohei Ueda, aginika
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 24 Dec 2014 15:00:00 -0000
+
+

@@ -1,0 +1,12 @@
+Source: ros-indigo-jsk-pr2-desktop
+Section: misc
+Priority: extra
+Maintainer: Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-jsk-pr2-startup
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-jsk-pr2-desktop
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-jsk-pr2-startup
+Description: Desktop Shortcuts for JSK PR2
