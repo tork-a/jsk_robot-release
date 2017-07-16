@@ -1,4 +1,4 @@
-From 4f6b4f4abd2b485c5dbb4e2752f3b1af1f23ed8e Mon Sep 17 00:00:00 2001
+From 1dbc7e0a1ecc8944f5b6927f8bd445a57a4665ef Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 17 Jun 2016 13:27:50 +0900
 Subject: [PATCH] check for saucy
@@ -8,7 +8,7 @@ Subject: [PATCH] check for saucy
  1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 5cba77f..8fc8f87 100644
+index 047e71a..bff3dac 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,7 +1,16 @@
