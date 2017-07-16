@@ -1,3 +1,0 @@
-<launch>
- <machine name="localhost" address="localhost" default="true"/>
-</launch>
