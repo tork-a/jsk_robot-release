@@ -1,4 +1,4 @@
-From 7e86bccbb504b19b13659c8a3687735c932e5d80 Mon Sep 17 00:00:00 2001
+From 4f6b4f4abd2b485c5dbb4e2752f3b1af1f23ed8e Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 17 Jun 2016 13:27:50 +0900
 Subject: [PATCH] check for saucy
@@ -31,5 +31,5 @@ index 5cba77f..8fc8f87 100644
    catkin_package()
    return()
 -- 
-1.9.1
+1.9.0
 
