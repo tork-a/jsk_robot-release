@@ -1,4 +1,4 @@
-From e9b2e35903909796a3035b7006d9a94a0d37ed1e Mon Sep 17 00:00:00 2001
+From 1670689a1ad1fa17aa96e1a264c3da89fc86e9f4 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 30 Jan 2015 15:03:02 +0900
 Subject: [PATCH] they are not released on indigo yet
@@ -40,5 +40,5 @@ index 09e99c6..8970401 100644
    <!-- <run_depend>joint_state_publisher</run_depend> -->
    <run_depend>tf2_web_republisher</run_depend>
 -- 
-1.9.1
+1.9.0
 
