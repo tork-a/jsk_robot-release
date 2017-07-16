@@ -20,7 +20,7 @@
   <node if="$(arg launch_servo)" pkg="baxter_tools" name="baxter_servo_node" type="enable_robot.py" args="-e" output="screen" clear_params="true"/>
 
   <!-- Startup joint trajectory will enable send command from eus-->
-  <node if="$(arg launch_joint_trajectory)" pkg="baxter_interface" name="baxter_joint_trajectory" type="joint_trajectory_action_server.py" args="" output="screen"/>
+  <node if="$(arg launch_joint_trajectory)" pkg="baxter_interface" name="baxter_joint_trajectory" type="joint_trajectory_action_server.py" args="--interpolation minjerk" output="screen"/>
   <node if="$(arg launch_joint_trajectory)" pkg="baxter_interface" name="head_joint_trajectory" type="head_action_server.py" args="" output="screen"/>
   <node if="$(arg launch_gripper_action)" pkg="baxter_interface" name="baxter_gripper_action_server" type="gripper_action_server.py" args="" output="screen"/>
 
@@ -46,6 +46,8 @@
 
   <include if="$(arg launch_moveit)"
            file="$(find jsk_baxter_startup)/jsk_baxter_moveit/moveit.launch" >
+      <arg name="left_electric_gripper" value="$(arg launch_gripper_action)" />
+      <arg name="right_electric_gripper" value="$(arg launch_gripper_action)" />
   </include>
 
   <!-- Do teleop with baxter_examples' joint_position_joystick.py-->
@@ -56,7 +58,10 @@
   <!-- Twitter -->
   <include if="$(arg launch_tweet)"
            file="$(find jsk_baxter_startup)/jsk_baxter_lifelog/baxter_tweet.launch" >
-    <arg name="launch_mongodb" value="$(arg launch_mongodb)"/>
+  </include>
+
+  <!-- MongoDB -->
+  <include if="$(arg launch_mongodb)" file="$(find jsk_robot_startup)/lifelog/mongodb.launch">
   </include>
 
   <!-- Wrench -->
