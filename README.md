@@ -1,12 +1,59 @@
-# jsk_robot
+# jsk_pr2_startup
 
-[![Build Status](https://travis-ci.org/jsk-ros-pkg/jsk_robot.svg)](https://travis-ci.org/jsk-ros-pkg/jsk_robot)
+## setup
 
+###. rewrite `/etc/ros/robot.launch`
 
-## Deb Build Status
+Please rewrite `/etc/ros/robot.launch` like following:
+```xml
+<launch>
 
-| Package           | Indigo (Saucy)                                                                                                                                                                             | Indigo (Trusty)                                                                                                                                                                              | Jade (Trusty)                                                                                                                                                                                | Jade (Vivid)                                                                                                                                                                               | Kinetic (Wily)                                                                                                                                                                           | Kinetic (Xenial)                                                                                                                                                                             |
-|:------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| jsk_robot (armhf) | [![Build Status](http://build.ros.org/job/Ibin_arm_uShf__jsk_robot__ubuntu_saucy_armhf__binary/badge/icon)](http://build.ros.org/job/Ibin_arm_uShf__jsk_robot__ubuntu_saucy_armhf__binary) | [![Build Status](http://build.ros.org/job/Ibin_arm_uThf__jsk_robot__ubuntu_trusty_armhf__binary/badge/icon)](http://build.ros.org/job/Ibin_arm_uThf__jsk_robot__ubuntu_trusty_armhf__binary) | [![Build Status](http://build.ros.org/job/Jbin_arm_uThf__jsk_robot__ubuntu_trusty_armhf__binary/badge/icon)](http://build.ros.org/job/Jbin_arm_uThf__jsk_robot__ubuntu_trusty_armhf__binary) | [![Build Status](http://build.ros.org/job/Jbin_arm_uVhf__jsk_robot__ubuntu_vivid_armhf__binary/badge/icon)](http://build.ros.org/job/Jbin_arm_uVhf__jsk_robot__ubuntu_vivid_armhf__binary) | [![Build Status](http://build.ros.org/job/Kbin_arm_uWhf__jsk_robot__ubuntu_wily_armhf__binary/badge/icon)](http://build.ros.org/job/Kbin_arm_uWhf__jsk_robot__ubuntu_wily_armhf__binary) | [![Build Status](http://build.ros.org/job/Kbin_arm_uXhf__jsk_robot__ubuntu_xenial_armhf__binary/badge/icon)](http://build.ros.org/job/Kbin_arm_uXhf__jsk_robot__ubuntu_xenial_armhf__binary) |
-| jsk_robot (i386)  | [![Build Status](http://build.ros.org/job/Ibin_uS32__jsk_robot__ubuntu_saucy_i386__binary/badge/icon)](http://build.ros.org/job/Ibin_uS32__jsk_robot__ubuntu_saucy_i386__binary)           | [![Build Status](http://build.ros.org/job/Ibin_uT32__jsk_robot__ubuntu_trusty_i386__binary/badge/icon)](http://build.ros.org/job/Ibin_uT32__jsk_robot__ubuntu_trusty_i386__binary)           | [![Build Status](http://build.ros.org/job/Jbin_uT32__jsk_robot__ubuntu_trusty_i386__binary/badge/icon)](http://build.ros.org/job/Jbin_uT32__jsk_robot__ubuntu_trusty_i386__binary)           | [![Build Status](http://build.ros.org/job/Jbin_uV32__jsk_robot__ubuntu_vivid_i386__binary/badge/icon)](http://build.ros.org/job/Jbin_uV32__jsk_robot__ubuntu_vivid_i386__binary)           | [![Build Status](http://build.ros.org/job/Kbin_uW32__jsk_robot__ubuntu_wily_i386__binary/badge/icon)](http://build.ros.org/job/Kbin_uW32__jsk_robot__ubuntu_wily_i386__binary)           | [![Build Status](http://build.ros.org/job/Kbin_uX32__jsk_robot__ubuntu_xenial_i386__binary/badge/icon)](http://build.ros.org/job/Kbin_uX32__jsk_robot__ubuntu_xenial_i386__binary)           |
-| jsk_robot (amd64) | [![Build Status](http://build.ros.org/job/Ibin_uS64__jsk_robot__ubuntu_saucy_amd64__binary/badge/icon)](http://build.ros.org/job/Ibin_uS64__jsk_robot__ubuntu_saucy_amd64__binary)         | [![Build Status](http://build.ros.org/job/Ibin_uT64__jsk_robot__ubuntu_trusty_amd64__binary/badge/icon)](http://build.ros.org/job/Ibin_uT64__jsk_robot__ubuntu_trusty_amd64__binary)         | [![Build Status](http://build.ros.org/job/Jbin_uT64__jsk_robot__ubuntu_trusty_amd64__binary/badge/icon)](http://build.ros.org/job/Jbin_uT64__jsk_robot__ubuntu_trusty_amd64__binary)         | [![Build Status](http://build.ros.org/job/Jbin_uV64__jsk_robot__ubuntu_vivid_amd64__binary/badge/icon)](http://build.ros.org/job/Jbin_uV64__jsk_robot__ubuntu_vivid_amd64__binary)         | [![Build Status](http://build.ros.org/job/Kbin_uW64__jsk_robot__ubuntu_wily_amd64__binary/badge/icon)](http://build.ros.org/job/Kbin_uW64__jsk_robot__ubuntu_wily_amd64__binary)         | [![Build Status](http://build.ros.org/job/Kbin_uX64__jsk_robot__ubuntu_xenial_amd64__binary/badge/icon)](http://build.ros.org/job/Kbin_uX64__jsk_robot__ubuntu_xenial_amd64__binary)         |
+    <!-- Robot Description --> <param name="robot_description" textfile="/etc/ros/groovy/urdf/robot.xml" />
+
+    <!-- Robot Analyzer --> <rosparam command="load" file="$(find pr2_bringup)/config/pr2_analyzers.yaml" ns="diag_agg" />
+
+    <!-- Robot bringup --> 
+    <include file="$(find jsk_pr2_startup)/pr2_bringup.launch" />
+    <!-- <group> -->
+    <!--   <remap from="/joy" to="/joy_org"/> -->
+    <!--   <include file="$(find pr2_bringup)/pr2.launch" /> -->
+    <!-- </group> -->
+
+    <!-- Web ui --> <!-- include file="$(find webui)/webui.launch" /> -->
+
+    <!-- Android app --> <include file="$(find local_app_manager)/app_manager.launch" >
+      <arg name="ROBOT_NAME" value="pr1012" />
+      <arg name="ROBOT_TYPE" value="pr2" />
+    </include>
+
+    <!-- RobotWebTools --> <include file="$(find rwt_image_view)/launch/rwt_image_view.launch"/>
+
+    <!-- kinect -->
+    <include file="$(find jsk_pr2_startup)/jsk_pr2_sensors/kinect_head.launch">
+      <arg name="respawn" value="false" />
+    </include>
+    <rosparam file="/etc/ros/robot.yaml"/>
+</launch> 
+
+```
+
+### launch mongodb for multiple users
+
+Different users in same unix group can't run mongod against single db owned by that group.
+This is because `mongod` opens database files using the `O_NOATIME` flag to the open system call.
+Open with `O_NOATIME` only works if the UID completelly matchs or the caller is priviledged (`CAP_FOWNER`) for security reasons.
+So if you want to launch mongodb with shared database resouces, it's better to use POSIX Capabilities in Linux.
+
+```bash
+# In Ubuntu
+$ sudo aptitude install libcap2-bin
+$ sudo setcap cap_fowner+ep /usr/bin/mongod
+```
+
+### Hark with Microcone
+
+#### documentation
+- Hark installation: http://www.hark.jp/wiki.cgi?page=HARK+Installation+Instructions
+- hark jsk installation: https://github.com/jsk-ros-pkg/jsk_3rdparty/blob/master/hark_jsk_plugins/INSTALL
+- Microcone: http://www.hark.jp/wiki.cgi?page=SupportedHardware#p10
+
