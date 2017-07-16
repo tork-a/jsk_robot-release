@@ -1,4 +1,4 @@
-From fc857cb79349e165a9243aee322c0d016bcf6e2f Mon Sep 17 00:00:00 2001
+From d42065b12e12bbfdb8895be05c232b98258a92a9 Mon Sep 17 00:00:00 2001
 From: Kei Okada <kei.okada@gmail.com>
 Date: Fri, 30 Jan 2015 15:11:02 +0900
 Subject: [PATCH] they are not released on indigo yet
@@ -25,5 +25,5 @@ index 4de3757..50e1033 100644
    <export>
    </export>
 -- 
-1.9.1
+1.9.0
 
