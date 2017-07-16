@@ -1,0 +1,173 @@
+ros-indigo-jsk-fetch-startup (1.1.0-0trusty) trusty; urgency=high
+
+  * Enable safe teleop for fetch (#801 <https://github.com/jsk-ros-pkg/jsk_robot/issues/801>)
+    * fetch_gazebo_bringup.launch and fetch_teleop.xml both starts cmd_vel_mux, add roslaunch_add_file_check  fetch_gazebo_bringup.launch
+    * add roslaunch_depends.py from https://github.com/ros/ros_comm/pull/998 to support if, https://github.com/ros/ros_comm/issues/953 could not load launch file with args directory
+    * jsk_fetch_startup/package.xml: missing joy, topic_tools, fetch_teleop depends
+    * launch/fetch_teleop.xml run unsafe_warning.l directory, not by roseus package
+    * jsk_fetch_startup/package.xml: missing fetch_moveit_config depends
+    * [jsk_fetch_startup] exclude fetch_bringup.launch from check
+    * [jsk_fetch_startup] move unsafe_warning.l to jsk_robot_startup / enable unsafe_warning on fetch
+    * [jsk_fetch_startup] add launch for safe teleop
+  * [jsk_pr2_startup] fix: init pose parameter typo for gazebo (#753 <https://github.com/jsk-ros-pkg/jsk_robot/issues/753>)
+    * [jsk_fetch_startup][fetch_gazebo_73b2.launch] fix: param name typo
+  * [jsk_fetch_startup][fetch_bringup.launch] fix: robot/type robot/name (#752 <https://github.com/jsk-ros-pkg/jsk_robot/issues/752>)
+  * [jsk_fetch_startup][warning.py] fix: suppress warning: 'self.robot_state_msgs is not initialized' (#750 <https://github.com/jsk-ros-pkg/jsk_robot/issues/750> )
+  * Contributors: Kei Okada, Yuki Furuta
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 15 Jul 2017 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.9-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 08 Nov 2016 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.8-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Mon, 07 Nov 2016 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.7-0trusty) trusty; urgency=high
+
+  * add network instruction to fetch README
+  * [jsk_fetch_startup] add fetch bringup launch files for gazebo (#692 <https://github.com/jsk-ros-pkg/jsk_robot/issues/692> )
+    
+      * add gazebo/fetch_gazebo_73b2.launch
+      * add fetch_gazebo_bringup.launch
+      * fetch_bringup.launch: cleanup launch file
+      * fetch_bringup.launch: add launch_move_base args
+      * add fetch_driver_msgs to package.xml
+      * fetch_bringup.launch: add launch_moveit args
+      * add more admin docs
+    
+  * [jsk_robot_lifelog] move logging program from  jsk_pr2_startup/jsk_pr2_lifelog to jsk_robot_startup/lifelog (#672 <https://github.com/jsk-ros-pkg/jsk_robot/issues/672> )
+  * [jsk_fetch_startup/scripts/warning.py] bugfix: error with no robot_state msg is subscribed
+  * Contributors: Kei Okada, Masaki Murooka, Yuki Furuta
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 01 Nov 2016 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.6-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 16 Jun 2016 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.5-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 17 Apr 2016 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.4-0trusty) trusty; urgency=high
+
+  * fetch_bringup.launch: fix arg boot_sound
+  * Contributors: Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 20 Mar 2016 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.3-0trusty) trusty; urgency=high
+
+  * add jsk_fetch_robot package
+  * Contributors: Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 04 Mar 2016 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.2-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 13 Feb 2016 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.1-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 18 Nov 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (1.0.0-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 06:17:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.13-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 06:04:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.12-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 05:47:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.11-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Mon, 31 Aug 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.10-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 15 Aug 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.9-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 02 Aug 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.8-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.7-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 10 Jun 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.6-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.5-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.4-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.3-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.2-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-indigo-jsk-fetch-startup (0.0.1-0trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
