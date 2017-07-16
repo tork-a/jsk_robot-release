@@ -1,0 +1,159 @@
+ros-indigo-pr2-base-trajectory-action (1.1.0-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 15 Jul 2017 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.9-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 08 Nov 2016 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.8-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Mon, 07 Nov 2016 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.7-1trusty) trusty; urgency=high
+
+  * [pr2_base_trajectory_action/CMakeLists.txt] temp disable test
+  * [pr2_base_trajectory_action] remove dependency to pr2_controller_msgs
+    * refactor codes
+    * remove pr2 related packages from dependencies
+    * use control_msgs/FollowJointTrajectoryAction
+    * support feedback message
+    * added test codes
+    * some bugfixes of old codes
+    * checked on real robot
+    * update launch files
+  * Contributors: Yuki Furuta
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 01 Nov 2016 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.6-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 16 Jun 2016 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.5-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Sun, 17 Apr 2016 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.4-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Sun, 20 Mar 2016 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.3-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Fri, 04 Mar 2016 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.2-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Sat, 13 Feb 2016 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.1-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Wed, 18 Nov 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (1.0.0-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 05 Nov 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.13-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 05 Nov 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.12-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 05 Nov 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.11-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Mon, 31 Aug 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.10-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Sat, 15 Aug 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.9-1trusty) trusty; urgency=high
+
+  * remove old rosmake related files
+  * Contributors: Kei Okada
+
+ -- saito <t@t.com>  Sun, 02 Aug 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.8-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.7-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Wed, 10 Jun 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.6-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.5-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.4-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.3-1trusty) trusty; urgency=high
+
+
+
+ -- saito <t@t.com>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.2-1trusty) trusty; urgency=high
+
+  * add install commands to cmake
+  * Contributors: Kei Okada
+
+ -- saito <t@t.com>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-indigo-pr2-base-trajectory-action (0.0.1-1trusty) trusty; urgency=high
+
+  * fix version number
+  * move pr2 related package under jsk_pr2_robot
+  * Contributors: Kei Okada, Yuto Inagaki
+
+ -- saito <t@t.com>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
