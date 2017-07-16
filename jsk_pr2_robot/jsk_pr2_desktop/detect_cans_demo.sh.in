@@ -1,9 +1,0 @@
-#!/bin/bash -i
-
-rosrun @PR2_DASHBOARD_EXE@ @PR2_DASHBOARD_EXE@ &
-
-## for robot
-sleep 1
-xterm -sb -rightbar -sl 99999 +s -title "JSK" -e ssh -t -l @PR2_USER@ pr1012 'export PS1=@PR2_USER@; source ~/.bashrc; roslaunch jsk_pr2_startup pr2.launch'
-sleep 5
-ssh -t -l @PR2_USER@ pr1012 'export PS1=@PR2_USER@; source ~/.bashrc; roslaunch detect_cans_in_fridge_201202 startup.launch start_euslisp:=true'
