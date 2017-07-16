@@ -1,3 +1,50 @@
+## jsk_robot (indigo) - 1.1.0-1
+
+The packages in the `jsk_robot` repository were released into the `indigo` distro by running `/usr/bin/bloom-release -y --skip-pip jsk_robot --track indigo --rosdistro indigo` on `Sun, 16 Jul 2017 07:11:10 -0000`
+
+These packages were released:
+- `baxtereus`
+- `fetcheus`
+- `jsk_201504_miraikan`
+- `jsk_baxter_desktop`
+- `jsk_baxter_startup`
+- `jsk_baxter_web`
+- `jsk_fetch_startup`
+- `jsk_nao_startup`
+- `jsk_pepper_startup`
+- `jsk_pr2_calibration`
+- `jsk_pr2_desktop`
+- `jsk_pr2_startup`
+- `jsk_robot`
+- `jsk_robot_startup`
+- `jsk_robot_utils`
+- `naoeus`
+- `naoqieus`
+- `peppereus`
+- `pr2_base_trajectory_action`
+- `roseus_remote`
+
+These packages were explicitly ignored:
+- `pepper_bringup`
+- `pepper_description`
+
+Version of package(s) in repository `jsk_robot`:
+
+- upstream repository: https://github.com/jsk-ros-pkg/jsk_robot.git
+- release repository: https://github.com/tork-a/jsk_robot-release.git
+- rosdistro version: `1.0.6-2`
+- old version: `1.1.0-0`
+- new version: `1.1.0-1`
+
+Versions of tools used:
+
+- bloom version: `0.5.26`
+- catkin_pkg version: `0.3.5`
+- rosdep version: `0.11.5`
+- rosdistro version: `0.6.2`
+- vcstools version: `0.1.39`
+
+
 ## jsk_robot (indigo) - 1.1.0-0
 
 The packages in the `jsk_robot` repository were released into the `indigo` distro by running `/usr/bin/bloom-release -y --skip-pip jsk_robot --track indigo --rosdistro indigo` on `Sun, 16 Jul 2017 06:47:53 -0000`
