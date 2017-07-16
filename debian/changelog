@@ -1,0 +1,190 @@
+ros-indigo-fetcheus (1.1.0-1trusty) trusty; urgency=high
+
+  * fetcheus/CMakeLists.txt : add install rule (#763 <https://github.com/jsk-ros-pkg/jsk_robot/issues/763>)
+  * [Fetch] jsk_fetch_robot/fetcheus/fetch-interface.l :angle-vector,
+    :angle-vector-sequence supports old API (#795 <https://github.com/jsk-ros-pkg/jsk_robot/issues/795> )
+    * pass start-time to start-offset-time and support :start-time key
+    * support :start-time key in angle-vector methods
+    * pass start-time in start-offset-time
+    * support old API
+    * :angle-vector-sequence accept tms in list of time
+    * add :angle-vector-sequence with moveit in fetcheus
+    * update :angle-vector in fetch-interface
+  * [fetcheus] disable gui in fetch-moveit.test (#778 <https://github.com/jsk-ros-pkg/jsk_robot/issues/778> )
+    * disable gui in fetch-moveit.test
+    * use simulation.launch instead of playground.launch
+  * [fetch] Correct head orientation for look-at #771 <https://github.com/jsk-ros-pkg/jsk_robot/issues/771> (#773 <https://github.com/jsk-ros-pkg/jsk_robot/issues/773>)
+    * Correct fetch head orientation
+    * test/test-fetcheus.l: add test to check #771 <https://github.com/jsk-ros-pkg/jsk_robot/issues/771>
+    * package.xml: add depends to pr2eus_moveit
+  * [fetcheus] modify :reset-pose (#742 <https://github.com/jsk-ros-pkg/jsk_robot/issues/742>)
+    * send *fetch* :torso :waist-z :joint-angle 20moveit need more space between base and elbow_flex_link
+  * [fetch-robot] set effort to 40 in :go-grasp (#727 <https://github.com/jsk-ros-pkg/jsk_robot/issues/727> )
+    * set effort to 40 in :go-grasp
+  * fetch-interface.l : add args for :speak methods (#723 <https://github.com/jsk-ros-pkg/jsk_robot/issues/723>)
+  * test/test-fetcheus.l: add test to check :angle-vector on kinematics simulator (#717 <https://github.com/jsk-ros-pkg/jsk_robot/issues/717> )
+    * use :angle-vector-raw for simulation mode
+    * test/test-fetcheus.l: add euslisp test to check :angle-vector on kinematics simulator
+  * Contributors: Noya Yamaguchi, Guilherme-Affonso, Yuki Furuta, Kei Okada, Shingo Kitagawa
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 15 Jul 2017 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.9-1trusty) trusty; urgency=high
+
+  * add :speak methods to fetch-interface
+  * Contributors: Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 08 Nov 2016 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.8-1trusty) trusty; urgency=high
+
+  * :angle-vector, add :clear-velocities t, this requries https://github.com/jsk-ros-pkg/jsk_pr2eus/pull/255
+  * add test to check https://github.com/jsk-ros-pkg/jsk_robot/issues/702
+  * :inverse-kinematics do not update link-list if given
+  * use fetch-utils.l from fetch-interface.l
+  * add fetch-utils.l
+  * Contributors: Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Mon, 07 Nov 2016 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.7-1trusty) trusty; urgency=high
+
+  * set :use-torso as default behavior for :angle-vector
+  * set base-controller-action-name nil
+  * Contributors: Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 01 Nov 2016 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.6-1trusty) trusty; urgency=high
+
+  * feteus-interface.l : always use moveit within :angle-vector (#620 <https://github.com/jsk-ros-pkg/jsk_robot/issues/620>)
+    * fetcheus: fetch-interface.l : always use moveit within :angle-vector
+    * fetcheus : add test for fetch-moveit-interface
+    * feetcheus : fix typo in fetcheus.test
+  * Contributors: Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 16 Jun 2016 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.5-1trusty) trusty; urgency=high
+
+  * Control gripper from robot interface
+  * Fix arm end coords of 'fetch.l'
+    Modified:
+    - jsk_fetch_robot/fetcheus/fetch.yaml
+  * Contributors: Kentaro Wada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 17 Apr 2016 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.4-1trusty) trusty; urgency=high
+
+  * check collad-dom version before convert from urdf to collada
+  * test/test-fetcheus.l: add test for fetch-interface
+  * fetch-interface.l : fix robot-move-base-interface.l
+  * Contributors: Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 20 Mar 2016 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.3-1trusty) trusty; urgency=high
+
+  * add jsk_fetch_robot package
+  * Contributors: Kei Okada
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 04 Mar 2016 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.2-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 13 Feb 2016 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.1-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 18 Nov 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (1.0.0-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 06:17:00 -0000
+
+ros-indigo-fetcheus (0.0.13-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 06:04:00 -0000
+
+ros-indigo-fetcheus (0.0.12-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Fri, 06 Nov 2015 05:47:00 -0000
+
+ros-indigo-fetcheus (0.0.11-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Mon, 31 Aug 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.10-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sat, 15 Aug 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.9-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Sun, 02 Aug 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.8-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 15 Jul 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.7-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 10 Jun 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.6-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 09 Apr 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.5-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Tue, 07 Apr 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.4-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 29 Jan 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.3-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Thu, 08 Jan 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.2-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 07 Jan 2015 15:00:00 -0000
+
+ros-indigo-fetcheus (0.0.1-1trusty) trusty; urgency=high
+
+
+
+ -- Kei Okada <k-okada@jsk.t.u-tokyo.ac.jp>  Wed, 24 Dec 2014 15:00:00 -0000
+
+
