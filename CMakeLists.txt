@@ -6,7 +6,6 @@ project(baxtereus)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roseus
-  rostest
   collada_urdf
   euscollada
 #  baxter_description
@@ -63,6 +62,14 @@ install(DIRECTORY euslisp test
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   USE_SOURCE_PERMISSIONS)
 
-install(FILES baxter.l baxter-interface.l baxter-util.l baxter-moveit.l baxter.yaml DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(FILES baxter.l baxter-interface.l baxter-util.l baxter.yaml DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
-add_rostest(test/test-baxter.test)
+if(CATKIN_ENABLE_TESTING)
+  find_package(catkin REQUIRED COMPONENTS rostest)
+  add_rostest(test/test-baxter.test)
+  if ("$ENV{ROS_DISTRO}" STRGREATER "hydro")  # > hydro
+    add_rostest(test/baxter-moveit.test)
+  else()
+    message(WARNING "Skip baxter-moveit.test")
+  endif()
+endif()
