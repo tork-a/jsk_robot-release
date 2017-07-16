@@ -1,11 +1,14 @@
 <launch>
   <arg name="ip_address" default="" />
   <arg name="mtu"        default="1500" />
+  <arg name="imu_topic" default="/imu" />
   <arg name="SELF_FILTER_PARAM" default="" />
   <arg name="ODOMETRY_PARAM"    default="$(find jsk_robot_startup)/config/default_odometry_params.yaml"/>
   <arg name="RUN_DRIVER" default="true" />
   <arg name="USE_RESIZE" default="true" />
   <arg name="HEIGHTMAP_FILTER_Z" default="1.3" />
+  <arg name="USE_BIPED_LOCALIZATION" default="true" />
+  <arg name="USE_HEIGHTMAP" default="true" />
 
   <remap from="/multisense/joint_states" to="/joint_states" />
   <node pkg="pr2_navigation_self_filter" type="self_filter"
@@ -123,23 +126,31 @@
     </rosparam>
   </group>
 
-  <include file="$(find jsk_robot_startup)/launch/biped_localization.launch">
+  <include file="$(find jsk_robot_startup)/launch/biped_localization.launch" if="$(arg USE_BIPED_LOCALIZATION)">
     <arg name="set_slam_laser_params" value="true"/>
     <arg name="use_particle_odom" default="true"/>
+    <arg name="use_slam_feedback" value="true"/>
     <arg name="nodelet_index" value="2"/>
     <arg name="stereo_namespace" value="multisense_local"/>
-    <arg name="slam_laser_scan_height" value="2.0"/>
+    <arg name="slam_laser_scan_height" value="2.5"/>
     <arg name="slam_laser_max_height" value="0.5"/>
     <arg name="slam_laser_min_height" value="-0.5"/>
     <arg name="parameter_yaml" default="$(arg ODOMETRY_PARAM)"/>
+    <arg name="use_gmapping" value="true"/>
+    <arg name="use_rtabmap" value="false"/>
+    <arg name="imu_topic" value="$(arg imu_topic)"/>
   </include>
-
-  <include file="$(find jsk_footstep_planner)/launch/heightmap_perception/heightmap.launch">
+  <include file="$(find jsk_footstep_planner)/launch/heightmap_perception/heightmap.launch" if="$(arg USE_HEIGHTMAP)" >
     <arg name="USE_NODELET_MANAGER" value="false"/>
     <arg name="NODELET_MANAGER_NAME" value="multisense_laser"/>
     <arg name="NODELET_INDEX" value="3"/>
-    <arg name="INPUT" value="/distance_filtered_laser_snapshots/output_cloud" />
     <arg name="DEBUG_VIEW" value="false" />
+    <arg name="INPUT" value="/distance_filtered_laser_snapshots/output_cloud" unless="$(arg USE_BIPED_LOCALIZATION)"/>
+    <arg name="STATIC_FRAME" default="odom" unless="$(arg USE_BIPED_LOCALIZATION)"/>
+    <arg name="STAND_FRAME" default="odom_init" unless="$(arg USE_BIPED_LOCALIZATION)"/>
+    <arg name="INPUT" value="/slam_distance_filtered_laser_snapshots/output_cloud" if="$(arg USE_BIPED_LOCALIZATION)"/>
+    <arg name="STATIC_FRAME" value="map" if="$(arg USE_BIPED_LOCALIZATION)"/>
+    <arg name="STAND_FRAME" value="map" if="$(arg USE_BIPED_LOCALIZATION)"/>
   </include>
   <node pkg="jsk_robot_startup" type="auto_reset_heightmap.py" name="auto_reset_heightmap" />
 </launch>
