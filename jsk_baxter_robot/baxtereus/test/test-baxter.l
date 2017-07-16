@@ -197,6 +197,7 @@
       (assert (= (elt (send robot :rarm :angle-vector) i) (elt reversed i))))
     ))
 
+(when (string> (unix::getenv "ROS_DISTRO") "hydro")
 (load "package://baxtereus/baxter-interface.l")
 (deftest test-baxter-interface
   (let (robot ri msg)
@@ -211,10 +212,13 @@
     (send msg :velocity (instantiate float-vector (length (send msg :name))))
     (send msg :effort (instantiate float-vector (length (send msg :name))))
     (send ri :ros-state-callback msg)
+    ;; torso_t0 should not be contained in robot-state
+    (assert (not (member "torso_t0" (cdr (assoc :name (assoc 'robot-state (send ri :slots)))) :test #'string=)))
     ))
 
 (deftest test-baxter-init
   (baxter-init))
+) ;; when
 
 
 (run-all-tests)
